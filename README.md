@@ -41,7 +41,6 @@
             position: relative;
         }
 
-        /* Покращені плаваючі неонові фонові ореоли */
         body::before {
             content: '';
             position: fixed;
@@ -85,7 +84,6 @@
             margin: 0 auto;
         }
 
-        /* Анімації появи елементів (скрол) з покращеним ефектом підняття */
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(40px);
@@ -97,7 +95,6 @@
             transform: translateY(0);
         }
 
-        /* Покращена неонова підсвітка хедера */
         .portal-header {
             background: linear-gradient(135deg, rgba(9, 15, 29, 0.92) 0%, rgba(18, 30, 60, 0.92) 100%);
             backdrop-filter: blur(16px);
@@ -108,12 +105,6 @@
             border-radius: 24px;
             margin-bottom: 35px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(14, 165, 233, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-        }
-
-        .portal-header:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 45px rgba(14, 165, 233, 0.3);
         }
 
         .portal-header h1 {
@@ -134,7 +125,6 @@
             margin: 0 auto;
         }
 
-        /* Потужна неонова підсвітка головного інфо-боксу */
         .hero-info-box {
             background: linear-gradient(135deg, rgba(11, 20, 45, 0.95) 0%, rgba(20, 28, 79, 0.95) 100%);
             backdrop-filter: blur(16px);
@@ -144,28 +134,6 @@
             margin-bottom: 35px;
             text-align: center;
             box-shadow: 0 0 60px rgba(14, 165, 233, 0.3), inset 0 0 30px rgba(56, 189, 248, 0.15);
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-info-box::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(56, 189, 248, 0.05), transparent);
-            transform: rotate(45deg);
-            animation: shineSweep 6s linear infinite;
-        }
-
-        @keyframes shineSweep {
-            0% { transform: translateY(-100%) rotate(45deg); }
-            100% { transform: translateY(100%) rotate(45deg); }
-        }
-
-        .hero-info-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 80px rgba(14, 165, 233, 0.45), inset 0 0 40px rgba(56, 189, 248, 0.25);
         }
 
         .hero-info-box h2 {
@@ -186,11 +154,8 @@
             max-width: 950px;
             margin: 0 auto 15px auto;
             line-height: 1.8;
-            position: relative;
-            z-index: 1;
         }
 
-        /* Універсальні блоки контенту з покращеними рамками */
         .content-section {
             background: linear-gradient(135deg, rgba(13, 21, 39, 0.92) 0%, rgba(7, 12, 24, 0.92) 100%);
             backdrop-filter: blur(16px);
@@ -201,22 +166,6 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65);
             position: relative;
             overflow: hidden;
-            transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
-        }
-
-        .content-section:hover {
-            border-color: rgba(56, 189, 248, 0.4);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 25px rgba(14, 165, 233, 0.1);
-        }
-
-        .content-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.6), transparent);
         }
 
         .section-title {
@@ -235,7 +184,77 @@
             margin-bottom: 25px;
         }
 
-        /* Покращені дропдауни (аккордеони) з неоновим ефектом */
+        /* ПОКРАЩЕНА БІРЖА ТА АКТИВНІСТЬ */
+        .stock-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stock-metric-card {
+            background: linear-gradient(135deg, #101c3d 0%, #070d1f 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 18px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stock-metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.35);
+        }
+
+        .stock-metric-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stock-metric-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        .stock-metric-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .stock-badge-positive {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success-color);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            text-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+        }
+
+        .chart-box-wrapper {
+            position: relative;
+            width: 100%;
+            height: 480px; /* Зробили графік вищим і довшим */
+            background: linear-gradient(135deg, #070d1f 0%, #030612 100%);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: inset 0 0 35px rgba(0,0,0,0.8), 0 0 40px rgba(14, 165, 233, 0.15);
+        }
+
+        /* Стилі для випадаючих списків */
         .dropdown-element {
             margin-top: 16px;
         }
@@ -255,14 +274,12 @@
             justify-content: space-between;
             align-items: center;
             transition: all var(--transition-speed);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .dropdown-toggle-btn:hover {
             background: linear-gradient(135deg, #1c2d56 0%, #111a35 100%);
             border-color: var(--accent-blue);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.3);
         }
 
         .dropdown-panel {
@@ -280,7 +297,6 @@
             padding: 24px;
             margin-top: 4px;
             border-color: rgba(56, 189, 248, 0.2);
-            box-shadow: inset 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .dropdown-panel p, .dropdown-panel ul {
@@ -289,13 +305,8 @@
             margin-bottom: 12px;
         }
 
-        .dropdown-panel ul {
-            padding-left: 22px;
-        }
-
-        .dropdown-panel li {
-            margin-bottom: 8px;
-        }
+        .dropdown-panel ul { padding-left: 22px; }
+        .dropdown-panel li { margin-bottom: 8px; }
 
         .notice-box {
             background: rgba(14, 165, 233, 0.12);
@@ -305,10 +316,8 @@
             border-radius: 0 12px 12px 0;
             font-size: 0.95rem;
             color: #ffffff;
-            box-shadow: inset 0 0 15px rgba(14,165,233,0.08);
         }
 
-        /* Покращена сітка карток персоналу з крутими неоновими світловими акцентами */
         .staff-grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -322,8 +331,7 @@
             padding: 35px 22px;
             border-radius: 20px;
             text-align: center;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
         }
@@ -333,19 +341,12 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 5px;
             background: var(--accent-blue);
-            box-shadow: 0 0 20px var(--accent-blue);
-            transition: height 0.3s ease, box-shadow 0.3s ease;
         }
 
         .staff-profile-card:hover {
             transform: translateY(-8px) scale(1.02);
             border-color: var(--accent-blue);
-            box-shadow: 0 20px 45px rgba(14, 165, 233, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
-        }
-
-        .staff-profile-card:hover::before {
-            height: 8px;
-            box-shadow: 0 0 30px var(--accent-blue);
+            box-shadow: 0 20px 45px rgba(14, 165, 233, 0.4);
         }
 
         .staff-avatar-wrapper {
@@ -356,273 +357,56 @@
             border-radius: 50%;
             padding: 3px;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            box-shadow: 0 0 30px rgba(14, 165, 233, 0.4);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .staff-profile-card:hover .staff-avatar-wrapper {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 0 40px rgba(56, 189, 248, 0.7);
         }
 
         .staff-avatar-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--bg-card);
-            background-color: #0b1329;
-            display: block;
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid var(--bg-card); display: block;
         }
 
         .avatar-fallback {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.4rem;
-            border: 3px solid var(--bg-card);
-            color: var(--accent-blue);
-            text-shadow: 0 0 15px var(--accent-glow);
+            width: 100%; height: 100%; border-radius: 50%; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; border: 3px solid var(--bg-card); color: var(--accent-blue);
         }
 
-        .staff-profile-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 8px;
-            color: var(--text-main);
-        }
-
-        .staff-role-badge {
-            color: var(--accent-blue);
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 16px;
-            display: inline-block;
-            background: rgba(14, 165, 233, 0.15);
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .staff-profile-card:hover .staff-role-badge {
-            background: rgba(14, 165, 233, 0.3);
-            transform: scale(1.06);
-            box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
-        }
-
-        .staff-contacts-info {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            word-break: break-all;
-        }
-
-        .staff-contacts-info a {
-            color: var(--accent-blue);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-        }
-
-        .staff-contacts-info a:hover {
-            color: var(--accent-blue-hover);
-            text-decoration: underline;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
-        }
-
-        /* Покращений графік (Біржа активності) з футуристичним неоновим фоном та контейнером */
-        .chart-box-wrapper {
-            position: relative;
-            width: 100%;
-            height: 420px;
-            background: linear-gradient(135deg, #070d1f 0%, #030612 100%);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            margin-top: 20px;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.7), 0 0 30px rgba(14, 165, 233, 0.12);
-        }
+        .staff-profile-card h3 { font-size: 1.35rem; margin-bottom: 8px; color: var(--text-main); }
+        .staff-role-badge { color: var(--accent-blue); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; display: inline-block; background: rgba(14, 165, 233, 0.15); padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(14, 165, 233, 0.3); }
+        .staff-contacts-info { font-size: 0.95rem; color: var(--text-muted); word-break: break-all; }
+        .staff-contacts-info a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
+        .staff-contacts-info a:hover { color: var(--accent-blue-hover); text-decoration: underline; }
 
         .table-box-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 25px;
-            border-radius: 20px;
-            border: 1px solid var(--border-primary);
-            background-color: var(--bg-secondary);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+            width: 100%; overflow-x: auto; margin-top: 25px; border-radius: 20px; border: 1px solid var(--border-primary); background-color: var(--bg-secondary);
         }
 
-        .analytics-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.98rem;
-            white-space: nowrap;
-        }
+        .analytics-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.98rem; white-space: nowrap; }
+        .analytics-table th, .analytics-table td { padding: 18px 22px; border-bottom: 1px solid var(--border-primary); color: #f8fafc !important; }
+        .analytics-table th { background-color: #111d38 !important; color: var(--accent-blue) !important; font-weight: 600; text-transform: uppercase; font-size: 0.82rem; letter-spacing: 1px; }
+        .analytics-table tbody tr { background-color: #070d1b !important; }
+        .analytics-table tr:nth-child(even) { background-color: #0a1226 !important; }
+        .analytics-table tr:hover { background-color: rgba(14, 165, 233, 0.2) !important; }
 
-        .analytics-table th, .analytics-table td {
-            padding: 18px 22px;
-            border-bottom: 1px solid var(--border-primary);
-            color: #f8fafc !important;
-        }
-
-        .analytics-table th {
-            background-color: #111d38 !important;
-            color: var(--accent-blue) !important;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.82rem;
-            letter-spacing: 1px;
-        }
-
-        .analytics-table tbody tr {
-            background-color: #070d1b !important;
-            transition: background-color 0.3s ease;
-        }
-
-        .analytics-table tr:nth-child(even) {
-            background-color: #0a1226 !important;
-        }
-
-        .analytics-table tr:hover {
-            background-color: rgba(14, 165, 233, 0.2) !important;
-        }
-
-        .status-up { color: var(--success-color); font-weight: bold; text-shadow: 0 0 10px rgba(34,197,94,0.4); }
-        .status-stable { color: var(--accent-blue); font-weight: bold; text-shadow: 0 0 10px rgba(14,165,233,0.4); }
+        .status-up { color: var(--success-color); font-weight: bold; }
+        .status-stable { color: var(--accent-blue); font-weight: bold; }
 
         .event-detailed-card {
             background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(13, 21, 39, 0.98));
-            border: 1px solid var(--accent-blue);
-            border-radius: 20px;
-            padding: 32px;
-            margin-top: 30px;
-            box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);
-            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            border: 1px solid var(--accent-blue); border-radius: 20px; padding: 32px; margin-top: 30px; box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);
         }
-
-        .event-detailed-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 55px rgba(14, 165, 233, 0.5);
-        }
-
-        .event-detailed-card h3 {
-            color: var(--accent-blue);
-            font-size: 1.5rem;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
-        }
-
-        .event-detailed-card p {
-            color: #d1d5db;
-            font-size: 1rem;
-            margin-bottom: 16px;
-            line-height: 1.7;
-        }
-
-        .event-benefits-list {
-            list-style-type: none;
-            padding-left: 0;
-            margin-bottom: 22px;
-        }
-
-        .event-benefits-list li {
-            position: relative;
-            padding-left: 26px;
-            margin-bottom: 10px;
-            color: #e2e8f0;
-            font-size: 0.98rem;
-        }
-
-        .event-benefits-list li::before {
-            content: "✔";
-            position: absolute;
-            left: 0;
-            color: var(--success-color);
-            font-weight: bold;
-            text-shadow: 0 0 8px rgba(34,197,94,0.5);
-        }
-
-        .event-schedule-container {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-top: 18px;
-            border-top: 1px solid var(--border-primary);
-            padding-top: 18px;
-        }
-
-        .schedule-badge {
-            background: #111d38;
-            border: 1px solid var(--accent-blue);
-            color: #ffffff;
-            padding: 12px 20px;
-            border-radius: 14px;
-            font-weight: bold;
-            font-size: 1.02rem;
-            box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .schedule-badge:hover {
-            transform: scale(1.06);
-            box-shadow: 0 0 30px rgba(14, 165, 233, 0.6);
-        }
+        .event-detailed-card h3 { color: var(--accent-blue); font-size: 1.5rem; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+        .event-detailed-card p { color: #d1d5db; font-size: 1rem; margin-bottom: 16px; line-height: 1.7; }
+        .event-benefits-list { list-style-type: none; padding-left: 0; margin-bottom: 22px; }
+        .event-benefits-list li { position: relative; padding-left: 26px; margin-bottom: 10px; color: #e2e8f0; font-size: 0.98rem; }
+        .event-benefits-list li::before { content: "✔"; position: absolute; left: 0; color: var(--success-color); font-weight: bold; }
+        .event-schedule-container { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 18px; border-top: 1px solid var(--border-primary); padding-top: 18px; }
+        .schedule-badge { background: #111d38; border: 1px solid var(--accent-blue); color: #ffffff; padding: 12px 20px; border-radius: 14px; font-weight: bold; font-size: 1.02rem; }
 
         .owner-news-branch {
-            background: linear-gradient(135deg, #0d1527 0%, #070d1c 100%);
-            border: 1px dashed var(--accent-blue);
-            border-radius: 20px;
-            padding: 32px;
-            margin-top: 35px;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.6);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(135deg, #0d1527 0%, #070d1c 100%); border: 1px dashed var(--accent-blue); border-radius: 20px; padding: 32px; margin-top: 35px;
         }
-
-        .owner-news-branch:hover {
-            border-color: #38bdf8;
-            box-shadow: 0 15px 45px rgba(14, 165, 233, 0.2);
-        }
-
-        .owner-news-branch h3 {
-            color: var(--accent-blue);
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
-        }
-
-        .owner-news-branch p {
-            color: var(--text-muted);
-            font-size: 0.98rem;
-            margin-bottom: 12px;
-            line-height: 1.7;
-        }
+        .owner-news-branch h3 { color: var(--accent-blue); font-size: 1.35rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .owner-news-branch p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 12px; line-height: 1.7; }
 
         .portal-footer {
-            text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, #0d1527 0%, #070c1a 100%);
-            border: 1px solid var(--border-primary);
-            border-radius: 20px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 35px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            text-align: center; padding: 30px 20px; background: linear-gradient(135deg, #0d1527 0%, #070c1a 100%); border: 1px solid var(--border-primary); border-radius: 20px; color: var(--text-muted); font-size: 0.95rem; margin-top: 35px;
         }
     </style>
 </head>
@@ -643,7 +427,31 @@
 
         <section class="content-section animate-on-scroll">
             <h2 class="section-title">📈 Біржа Активності та Статистика Суду</h2>
-            <p class="section-description">Інтерактивна динаміка розгляду позовів, засідань та звернень громадян за звітні періоди у реальному часі:</p>
+            <p class="section-description">Розширена аналітика, показники продуктивності колегії та інтерактивна динаміка розгляду позовів у реальному часі:</p>
+            
+            <div class="stock-metrics-grid">
+                <div class="stock-metric-card">
+                    <div class="stock-metric-title">Загальний індекс RP-активності</div>
+                    <div class="stock-metric-value">98.4 pts</div>
+                    <span class="stock-metric-badge stock-badge-positive">+14.2% за місяць</span>
+                </div>
+                <div class="stock-metric-card">
+                    <div class="stock-metric-title">Розглянуті справи (Total)</div>
+                    <div class="stock-metric-value">3,142</div>
+                    <span class="stock-metric-badge stock-badge-positive">+285 нових справ</span>
+                </div>
+                <div class="stock-metric-card">
+                    <div class="stock-metric-title">Ефективність колегії</div>
+                    <div class="stock-metric-value">99.1%</div>
+                    <span class="stock-metric-badge stock-badge-positive">+3.5% стабільність</span>
+                </div>
+                <div class="stock-metric-card">
+                    <div class="stock-metric-title">Швидкість винесення вердикту</div>
+                    <div class="stock-metric-value">12 хв</div>
+                    <span class="stock-metric-badge stock-badge-positive">-4 хв (швидше)</span>
+                </div>
+            </div>
+
             <div class="chart-box-wrapper">
                 <canvas id="courtStockChart"></canvas>
             </div>
@@ -812,24 +620,6 @@
                     <div class="staff-role-badge">Стажер-суддя</div>
                     <div class="staff-contacts-info">Roblox: Itz_raose<br>TG: <a href="https://t.me/ob1zyan" target="_blank">@ob1zyan</a></div>
                 </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Lex_Prime" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '⚖️'}))">
-                    </div>
-                    <h3>Lex_Prime</h3>
-                    <div class="staff-role-badge">Суддя</div>
-                    <div class="staff-contacts-info">Roblox: Lex_Prime<br>TG: <a href="https://t.me/lex_prime_ur" target="_blank">@lex_prime_ur</a></div>
-                </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Astra_Justice" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '⚖️'}))">
-                    </div>
-                    <h3>Astra_Justice</h3>
-                    <div class="staff-role-badge">Суддя</div>
-                    <div class="staff-contacts-info">Roblox: Astra_Justice<br>TG: <a href="https://t.me/astra_justice" target="_blank">@astra_justice</a></div>
-                </div>
             </div>
         </section>
 
@@ -919,11 +709,8 @@
     </div>
 
     <script>
-        // Анімація появи елементів при скролі (Intersection Observer)
         document.addEventListener("DOMContentLoaded", function() {
-            const observerOptions = {
-                threshold: 0.1
-            };
+            const observerOptions = { threshold: 0.1 };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -938,7 +725,6 @@
                 observer.observe(el);
             });
 
-            // Інтерактивність для акордеонів (випадаючих панелей правил)
             const dropdownBtns = document.querySelectorAll('.dropdown-toggle-btn');
             dropdownBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -946,53 +732,47 @@
                     const arrowSpan = this.querySelector('span:last-child');
                     
                     panel.classList.toggle('expanded');
-                    
-                    if (panel.classList.contains('expanded')) {
-                        arrowSpan.textContent = '▲';
-                    } else {
-                        arrowSpan.textContent = '▼';
-                    }
+                    arrowSpan.textContent = panel.classList.contains('expanded') ? '▲' : '▼';
                 });
             });
 
-            // Налаштування та ініціалізація футуристичного графіка Chart.js для Біржі Активності
+            // Налаштування та запуск графіка з довгою плавною анімацією
             const ctx = document.getElementById('courtStockChart').getContext('2d');
-            
-            // Створення градієнта для заповнення лінії графіку
-            const chartGradient = ctx.createLinearGradient(0, 0, 0, 350);
-            chartGradient.addColorStop(0, 'rgba(14, 165, 233, 0.45)');
+            const chartGradient = ctx.createLinearGradient(0, 0, 0, 400);
+            chartGradient.addColorStop(0, 'rgba(14, 165, 233, 0.55)');
             chartGradient.addColorStop(1, 'rgba(14, 165, 233, 0.0)');
 
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень'],
+                    labels: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень (+)', 'Вересень (План)'],
                     datasets: [{
-                        label: 'Кількість успішно розглянутих справ',
-                        data: [210, 260, 329, 390, 440, 570, 573, 620],
+                        label: 'Динаміка успішно розглянутих справ (+ стабільний ріст)',
+                        data: [210, 260, 329, 390, 440, 570, 573, 640, 710],
                         borderColor: '#38bdf8',
-                        borderWidth: 3,
+                        borderWidth: 4,
                         pointBackgroundColor: '#818cf8',
                         pointBorderColor: '#ffffff',
                         pointBorderWidth: 2,
-                        pointRadius: 5,
-                        pointHoverRadius: 8,
+                        pointRadius: 6,
+                        pointHoverRadius: 9,
                         backgroundColor: chartGradient,
                         fill: true,
-                        tension: 0.35
+                        tension: 0.4
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: {
+                        duration: 2500, // Довга та плавна анімація появи графіка
+                        easing: 'easeOutQuart'
+                    },
                     plugins: {
                         legend: {
                             labels: {
                                 color: '#f8fafc',
-                                font: {
-                                    size: 13,
-                                    family: "'Segoe UI', Roboto, sans-serif"
-                                }
+                                font: { size: 13, family: "'Segoe UI', Roboto, sans-serif" }
                             }
                         },
                         tooltip: {
@@ -1001,30 +781,17 @@
                             bodyColor: '#f8fafc',
                             borderColor: '#38bdf8',
                             borderWidth: 1,
-                            padding: 12,
-                            boxPadding: 6
+                            padding: 12
                         }
                     },
                     scales: {
                         x: {
-                            grid: {
-                                color: 'rgba(30, 41, 59, 0.5)',
-                                borderColor: 'rgba(30, 41, 59, 0.8)'
-                            },
-                            ticks: {
-                                color: '#94a3b8',
-                                font: { size: 12 }
-                            }
+                            grid: { color: 'rgba(30, 41, 59, 0.5)' },
+                            ticks: { color: '#94a3b8', font: { size: 12 } }
                         },
                         y: {
-                            grid: {
-                                color: 'rgba(30, 41, 59, 0.5)',
-                                borderColor: 'rgba(30, 41, 59, 0.8)'
-                            },
-                            ticks: {
-                                color: '#94a3b8',
-                                font: { size: 12 }
-                            }
+                            grid: { color: 'rgba(30, 41, 59, 0.5)' },
+                            ticks: { color: '#94a3b8', font: { size: 12 } }
                         }
                     }
                 }
