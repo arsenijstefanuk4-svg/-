@@ -428,31 +428,7 @@
         <section class="content-section animate-on-scroll">
             <h2 class="section-title">📈 Біржа Активності та Статистика Суду</h2>
             <p class="section-description">Розширена аналітика, показники продуктивності колегії та інтерактивна динаміка розгляду позовів у реальному часі:</p>
-            
-            <div class="stock-metrics-grid">
-                <div class="stock-metric-card">
-                    <div class="stock-metric-title">Загальний індекс RP-активності</div>
-                    <div class="stock-metric-value">98.4 pts</div>
-                    <span class="stock-metric-badge stock-badge-positive">+14.2% за місяць</span>
-                </div>
-                <div class="stock-metric-card">
-                    <div class="stock-metric-title">Розглянуті справи (Total)</div>
-                    <div class="stock-metric-value">3,142</div>
-                    <span class="stock-metric-badge stock-badge-positive">+285 нових справ</span>
-                </div>
-                <div class="stock-metric-card">
-                    <div class="stock-metric-title">Ефективність колегії</div>
-                    <div class="stock-metric-value">99.1%</div>
-                    <span class="stock-metric-badge stock-badge-positive">+3.5% стабільність</span>
-                </div>
-                <div class="stock-metric-card">
-                    <div class="stock-metric-title">Швидкість винесення вердикту</div>
-                    <div class="stock-metric-value">12 хв</div>
-                    <span class="stock-metric-badge stock-badge-positive">-4 хв (швидше)</span>
-                </div>
-            </div>
-
-            <div class="chart-box-wrapper">
+<div class="chart-box-wrapper">
                 <canvas id="courtStockChart"></canvas>
             </div>
         </section>
