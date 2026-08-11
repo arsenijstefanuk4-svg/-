@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="uk" data-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -9,13 +10,13 @@
         :root {
             --bg-primary: #020617;
             --bg-secondary: #070d1f;
-            --bg-card: #0b1329;
-            --bg-card-hover: #101c3d;
-            --border-primary: #1e293b;
+            --bg-card: rgba(11, 19, 41, 0.75);
+            --bg-card-hover: rgba(16, 28, 61, 0.9);
+            --border-primary: rgba(30, 41, 59, 0.8);
             --border-accent: #38bdf8;
             --accent-blue: #0ea5e9;
             --accent-blue-hover: #38bdf8;
-            --accent-glow: rgba(14, 165, 233, 0.45);
+            --accent-glow: rgba(14, 165, 233, 0.35);
             --accent-purple: #818cf8;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
@@ -25,41 +26,15 @@
             --transition-speed: 0.3s;
         }
 
-        [data-theme="midnight"] {
-            --bg-primary: #050508;
-            --bg-secondary: #0a0a12;
-            --bg-card: #12121f;
-            --bg-card-hover: #1b1b2f;
-            --border-primary: #27273a;
-            --accent-blue: #6366f1;
-            --accent-blue-hover: #818cf8;
-            --accent-glow: rgba(99, 102, 241, 0.45);
-            --accent-purple: #a855f7;
-        }
-
-        [data-theme="cyber"] {
-            --bg-primary: #030712;
-            --bg-secondary: #090d16;
-            --bg-card: #0f172a;
-            --bg-card-hover: #1e293b;
-            --border-primary: #334155;
-            --accent-blue: #06b6d4;
-            --accent-blue-hover: #22d3ee;
-            --accent-glow: rgba(6, 182, 212, 0.5);
-            --accent-purple: #3b82f6;
-        }
-
         [data-theme="light"] {
             --bg-primary: #f8fafc;
             --bg-secondary: #f1f5f9;
-            --bg-card: #ffffff;
-            --bg-card-hover: #e2e8f0;
-            --border-primary: #cbd5e1;
-            --border-accent: #0284c7;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card-hover: rgba(226, 232, 240, 0.95);
+            --border-primary: rgba(203, 213, 225, 0.8);
             --accent-blue: #0284c7;
             --accent-blue-hover: #0369a1;
-            --accent-glow: rgba(2, 132, 199, 0.25);
-            --accent-purple: #6366f1;
+            --accent-glow: rgba(2, 132, 199, 0.2);
             --text-main: #0f172a;
             --text-muted: #64748b;
         }
@@ -81,24 +56,24 @@
             padding-top: 100px;
             overflow-x: hidden;
             min-height: 100vh;
-            position: relative;
         }
 
-        /* Top Navigation */
+        /* Top Sticky Navigation */
         .sticky-navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(7, 13, 31, 0.85);
-            backdrop-filter: blur(16px);
+            background: rgba(7, 13, 31, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-primary);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 40px;
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
         .nav-logo {
@@ -111,6 +86,7 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
         }
 
         .nav-links {
@@ -130,7 +106,7 @@
 
         .nav-links a:hover, .nav-links a.active {
             color: var(--accent-blue);
-            text-shadow: 0 0 10px var(--accent-glow);
+            text-shadow: 0 0 12px var(--accent-glow);
         }
 
         .nav-actions {
@@ -151,19 +127,20 @@
             justify-content: center;
             cursor: pointer;
             position: relative;
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
         .icon-btn:hover {
             border-color: var(--accent-blue);
-            box-shadow: 0 0 15px var(--accent-glow);
+            box-shadow: 0 0 20px var(--accent-glow);
             transform: translateY(-2px);
         }
 
         .badge-counter {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: -4px;
+            right: -4px;
             background: var(--danger-color);
             color: #fff;
             font-size: 0.7rem;
@@ -174,6 +151,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
         }
 
         .main-container {
@@ -181,7 +159,7 @@
             margin: 0 auto;
         }
 
-        /* Hero Section (Bento Grid Style) */
+        /* Hero Bento Grid */
         .hero-bento-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -190,21 +168,24 @@
         }
 
         .hero-main-card {
-            background: linear-gradient(135deg, rgba(11, 20, 45, 0.95) 0%, rgba(20, 28, 79, 0.95) 100%);
-            border: 2px solid var(--accent-blue);
+            background: linear-gradient(135deg, rgba(11, 20, 45, 0.85) 0%, rgba(20, 28, 79, 0.85) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(56, 189, 248, 0.4);
             border-radius: 26px;
             padding: 45px 35px;
-            box-shadow: 0 0 60px rgba(14, 165, 233, 0.3), inset 0 0 30px rgba(56, 189, 248, 0.15);
+            box-shadow: 0 0 50px rgba(14, 165, 233, 0.2), inset 0 0 30px rgba(56, 189, 248, 0.1);
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-main-card h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -214,7 +195,7 @@
 
         .hero-main-card p {
             color: #cbd5e1;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 25px;
             line-height: 1.7;
         }
@@ -250,6 +231,7 @@
             border-radius: 14px;
             font-weight: 700;
             cursor: pointer;
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
@@ -260,6 +242,7 @@
 
         .hero-side-card {
             background: var(--bg-card);
+            backdrop-filter: blur(15px);
             border: 1px solid var(--border-primary);
             border-radius: 26px;
             padding: 30px;
@@ -271,7 +254,7 @@
 
         .hero-side-card h3 {
             color: var(--accent-blue);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -289,7 +272,7 @@
 
         .live-stat-row:last-child { border-bottom: none; }
 
-        /* Quick Actions */
+        /* Quick Actions Grid */
         .quick-actions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -299,6 +282,7 @@
 
         .quick-action-btn {
             background: var(--bg-card);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-primary);
             border-radius: 16px;
             padding: 20px;
@@ -314,7 +298,7 @@
         }
 
         .quick-action-btn i {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--accent-blue);
         }
 
@@ -327,7 +311,9 @@
 
         /* Content Sections */
         .content-section {
-            background: var(--bg-secondary);
+            background: rgba(7, 13, 31, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-primary);
             border-radius: 24px;
             padding: 35px;
@@ -343,11 +329,13 @@
             margin-bottom: 25px;
             border-bottom: 2px solid var(--border-primary);
             padding-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .section-title {
             color: var(--accent-blue);
-            font-size: 1.75rem;
+            font-size: 1.6rem;
             font-weight: 700;
             display: flex;
             align-items: center;
@@ -355,7 +343,7 @@
             text-shadow: 0 0 15px var(--accent-glow);
         }
 
-        /* Market / Economy Stock Metrics */
+        /* Market / Stock Metrics with Live Animation Styles */
         .stock-metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -365,17 +353,19 @@
 
         .stock-metric-card {
             background: var(--bg-card);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-primary);
             border-radius: 18px;
             padding: 22px;
             text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .stock-metric-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-blue);
+            box-shadow: 0 15px 30px var(--accent-glow);
         }
 
         .stock-metric-title {
@@ -391,6 +381,14 @@
             font-weight: 800;
             color: var(--text-main);
             margin-bottom: 6px;
+            transition: color 0.3s ease;
+        }
+
+        /* Анімація для біржових показників */
+        .stock-metric-value.updated {
+            color: var(--accent-blue);
+            text-shadow: 0 0 15px var(--accent-glow);
+            transform: scale(1.05);
         }
 
         .stock-metric-badge {
@@ -410,8 +408,9 @@
         .chart-box-wrapper {
             position: relative;
             width: 100%;
-            height: 450px;
+            height: 420px;
             background: var(--bg-card);
+            backdrop-filter: blur(10px);
             padding: 25px;
             border-radius: 20px;
             border: 1px solid var(--border-primary);
@@ -421,7 +420,6 @@
         .chart-controls {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
             flex-wrap: wrap;
         }
 
@@ -444,7 +442,7 @@
             box-shadow: 0 0 15px var(--accent-glow);
         }
 
-        /* Staff Grid (Зменшено кількість суддів за запитом) */
+        /* Staff Grid (зменшено кількість суддів за запитом) */
         .staff-grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -454,6 +452,7 @@
 
         .staff-profile-card {
             background: var(--bg-card);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-primary);
             padding: 30px 20px;
             border-radius: 20px;
@@ -467,7 +466,7 @@
         .staff-profile-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 5px;
+            top: 0; left: 0; width: 100%; height: 4px;
             background: var(--accent-blue);
         }
 
@@ -495,7 +494,7 @@
         .staff-contacts-info { font-size: 0.9rem; color: var(--text-muted); word-break: break-all; }
         .staff-contacts-info a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
 
-        /* News & Updates Branch */
+        /* News Section */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -505,6 +504,7 @@
 
         .news-card {
             background: var(--bg-card);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-primary);
             border-radius: 16px;
             padding: 25px;
@@ -518,6 +518,7 @@
         .news-card:hover {
             border-color: var(--accent-blue);
             transform: translateY(-3px);
+            box-shadow: 0 10px 25px var(--accent-glow);
         }
 
         .news-date {
@@ -550,6 +551,7 @@
 
         .intel-card {
             background: var(--bg-card);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-primary);
             border-radius: 20px;
             padding: 25px;
@@ -581,12 +583,12 @@
 
         .intel-list li:last-child { border-bottom: none; }
 
-        /* Modals & Dialogs */
+        /* Modals */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -641,6 +643,7 @@
             text-align: center;
             padding: 30px;
             background: var(--bg-secondary);
+            backdrop-filter: blur(15px);
             border: 1px solid var(--border-primary);
             border-radius: 20px;
             color: var(--text-muted);
@@ -648,7 +651,7 @@
             margin-top: 40px;
         }
 
-        /* Pulse dot */
+        /* Pulse dot animation */
         .pulse-dot {
             width: 8px;
             height: 8px;
@@ -664,7 +667,7 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
 
-        /* Responsive */
+        /* Responsive Layout */
         @media(max-width: 900px) {
             .hero-bento-grid { grid-template-columns: 1fr; }
             .sticky-navbar { padding: 15px 20px; }
@@ -687,7 +690,7 @@
             <li><a href="#news">Новини</a></li>
         </ul>
         <div class="nav-actions">
-            <button class="icon-btn" id="searchBtn" title="Пошук (Ctrl+K)"><i class="fa-solid fa-search"></i></button>
+            <button class="icon-btn" id="searchBtn" title="Швидкий пошук"><i class="fa-solid fa-search"></i></button>
             <button class="icon-btn" id="notificationsBtn" title="Сповіщення">
                 <i class="fa-solid fa-bell"></i>
                 <span class="badge-counter" id="notifCounter">3</span>
@@ -770,7 +773,7 @@
         <div class="content-section" id="market">
             <div class="section-header">
                 <h2 class="section-title"><i class="fa-solid fa-bolt"></i> Біржа активності та навантаження</h2>
-                <span style="font-size: 0.85rem; color: var(--success-color); font-weight: bold;"><span class="pulse-dot" style="display:inline-block; margin-right:5px;"></span> Оновлення кожні 15 сек</span>
+                <span style="font-size: 0.85rem; color: var(--success-color); font-weight: bold; display: flex; align-items: center; gap: 5px;"><span class="pulse-dot"></span> Жива анімація оновлення (15с)</span>
             </div>
             
             <div class="stock-metrics-grid">
@@ -909,8 +912,6 @@
             <p style="color: var(--text-muted); margin-bottom: 20px;">Виберіть тему оформлення інтерфейсу:</p>
             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                 <button class="filter-btn active" onclick="setTheme('dark')">Dark Navy</button>
-                <button class="filter-btn" onclick="setTheme('midnight')">Midnight Black</button>
-                <button class="filter-btn" onclick="setTheme('cyber')">Cyber Neon</button>
                 <button class="filter-btn" onclick="setTheme('light')">Light Mode</button>
             </div>
         </div>
@@ -925,7 +926,7 @@
     </div>
 
     <script>
-        // Smooth scrolling
+        // Smooth scroll helper
         function scrollToSection(id) {
             const el = document.getElementById(id);
             if(el) {
@@ -933,7 +934,7 @@
             }
         }
 
-        // Modals Management
+        // Modals Control
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('active');
         }
@@ -955,14 +956,14 @@
 
         document.getElementById('settingsBtn').addEventListener('click', () => openModal('settingsModal'));
         document.getElementById('searchBtn').addEventListener('click', () => {
-            alert('Глобальний пошук: введіть запит для швидкого навігування по розділах суду.');
+            alert('Глобальний пошук: введіть ключове слово для швидкого переходу.');
         });
         document.getElementById('notificationsBtn').addEventListener('click', () => {
-            alert('У вас 3 нових сповіщення: оновлення регламенту апеляцій, нові стажери-судді та технічні роботи на порталі.');
+            alert('Сповіщення: регламент оновлено, система працює стабільно.');
             document.getElementById('notifCounter').style.display = 'none';
         });
 
-        // Theme Switcher
+        // Theme Switcher & LocalStorage
         function setTheme(themeName) {
             document.documentElement.setAttribute('data-theme', themeName);
             localStorage.setItem('court_theme', themeName);
@@ -975,7 +976,7 @@
             document.documentElement.setAttribute('data-theme', savedTheme);
         }
 
-        // Chart.js Setup
+        // Chart.js Configuration
         const ctx = document.getElementById('courtActivityChart').getContext('2d');
         let courtChart = new Chart(ctx, {
             type: 'line',
@@ -1021,12 +1022,25 @@
             courtChart.update();
         }
 
-        // Animated Stock / Statistics simulation (прыгает каждые 15 секунд по вашему запросу)
+        // Live Animated Market Pulse (оновлення показників біржі кожні 15 секунд з анімацією свічення)
         setInterval(() => {
+            const val1El = document.getElementById('stockMetric1');
+            const val2El = document.getElementById('stockMetric2');
+            
             const randomVal1 = (93 + Math.random() * 3).toFixed(1) + '%';
             const randomVal2 = (87 + Math.random() * 3).toFixed(1) + '%';
-            document.getElementById('stockMetric1').innerText = randomVal1;
-            document.getElementById('stockMetric2').innerText = randomVal2;
+            
+            val1El.innerText = randomVal1;
+            val2El.innerText = randomVal2;
+
+            // Додаємо тимчасовий клас анімації
+            val1El.classList.add('updated');
+            val2El.classList.add('updated');
+
+            setTimeout(() => {
+                val1El.classList.remove('updated');
+                val2El.classList.remove('updated');
+            }, 1000);
             
             const currentUsers = 1248 + Math.floor(Math.random() * 20) - 10;
             document.getElementById('activeUsersCount').innerText = currentUsers.toLocaleString();
