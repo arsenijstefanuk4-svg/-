@@ -1,16 +1,12 @@
-<html lang="uk">
+<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Офіційний Портал Судової Системи — Ukraine RP</title>
+    <title>Суд Ukraine RP — Офіційний портал судової системи</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         :root {
             --bg-primary: #020617;
             --bg-secondary: #070d1f;
@@ -26,165 +22,329 @@
             --text-muted: #94a3b8;
             --success-color: #22c55e;
             --warning-color: #f59e0b;
-            --transition-speed: 0.4s;
+            --danger-color: #ef4444;
+            --transition-speed: 0.3s;
+        }
+
+        [data-theme="midnight"] {
+            --bg-primary: #050508;
+            --bg-secondary: #0a0a12;
+            --bg-card: #12121f;
+            --bg-card-hover: #1b1b2f;
+            --border-primary: #27273a;
+            --accent-blue: #6366f1;
+            --accent-blue-hover: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.45);
+            --accent-purple: #a855f7;
+        }
+
+        [data-theme="cyber"] {
+            --bg-primary: #030712;
+            --bg-secondary: #090d16;
+            --bg-card: #0f172a;
+            --bg-card-hover: #1e293b;
+            --border-primary: #334155;
+            --accent-blue: #06b6d4;
+            --accent-blue-hover: #22d3ee;
+            --accent-glow: rgba(6, 182, 212, 0.5);
+            --accent-purple: #3b82f6;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-card-hover: #e2e8f0;
+            --border-primary: #cbd5e1;
+            --border-accent: #0284c7;
+            --accent-blue: #0284c7;
+            --accent-blue-hover: #0369a1;
+            --accent-glow: rgba(2, 132, 199, 0.25);
+            --accent-purple: #6366f1;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed);
         }
 
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: radial-gradient(circle at 50% 0%, #0c1836 0%, #020617 70%);
+            background: radial-gradient(circle at 50% 0%, var(--bg-secondary) 0%, var(--bg-primary) 70%);
             background-attachment: fixed;
             color: var(--text-main);
             line-height: 1.7;
-            padding: 30px;
+            padding: 20px;
+            padding-top: 100px;
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
         }
 
-        body::before {
-            content: '';
+        /* Top Navigation */
+        .sticky-navbar {
             position: fixed;
-            top: -200px;
-            left: -200px;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.18) 0%, transparent 70%);
-            filter: blur(80px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(7, 13, 31, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            z-index: -1;
-            animation: floatGlow1 12s ease-in-out infinite alternate;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
         }
 
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -200px;
-            right: -200px;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(129, 140, 248, 0.15) 0%, transparent 70%);
-            filter: blur(90px);
+        .icon-btn:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .badge-counter {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger-color);
+            color: #fff;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
-            z-index: -1;
-            animation: floatGlow2 15s ease-in-out infinite alternate-reverse;
-        }
-
-        @keyframes floatGlow1 {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-            100% { transform: translate(100px, 80px) scale(1.3); opacity: 1; }
-        }
-
-        @keyframes floatGlow2 {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-            100% { transform: translate(-120px, -90px) scale(1.25); opacity: 1; }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
 
         .main-container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .portal-header {
-            background: linear-gradient(135deg, rgba(9, 15, 29, 0.92) 0%, rgba(18, 30, 60, 0.92) 100%);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-bottom: 5px solid var(--accent-blue);
-            padding: 40px 25px;
+        /* Mega Title */
+        .mega-title-wrapper {
             text-align: center;
-            border-radius: 24px;
-            margin-bottom: 35px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(14, 165, 233, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+            padding: 20px;
+            position: relative;
         }
 
-        .portal-header h1 {
-            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-            background: linear-gradient(135deg, #38bdf8 0%, #ffffff 50%, #818cf8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.4));
-        }
-
-        .portal-header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 850px;
-            margin: 0 auto;
-        }
-
-        .hero-info-box {
-            background: linear-gradient(135deg, rgba(11, 20, 45, 0.95) 0%, rgba(20, 28, 79, 0.95) 100%);
-            backdrop-filter: blur(16px);
-            border: 2px solid var(--accent-blue);
-            border-radius: 26px;
-            padding: 45px 35px;
-            margin-bottom: 35px;
-            text-align: center;
-            box-shadow: 0 0 60px rgba(14, 165, 233, 0.3), inset 0 0 30px rgba(56, 189, 248, 0.15);
-        }
-
-        .hero-info-box h2 {
-            font-size: clamp(2.2rem, 5vw, 3.6rem);
+        .mega-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #ffffff 50%, var(--accent-purple) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 18px;
-            filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.6));
+            filter: drop-shadow(0 0 35px var(--accent-glow));
+            margin-bottom: 10px;
         }
 
-        .hero-info-box p {
-            color: #cbd5e1;
-            font-size: 1.18rem;
-            max-width: 950px;
-            margin: 0 auto 15px auto;
-            line-height: 1.8;
+        .mega-subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
         }
 
-        .content-section {
-            background: linear-gradient(135deg, rgba(13, 21, 39, 0.92) 0%, rgba(7, 12, 24, 0.92) 100%);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(30, 41, 59, 0.8);
-            border-radius: 24px;
-            padding: 40px;
+        /* Hero Info Box (System Status Grid) */
+        .hero-status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
             margin-bottom: 35px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65);
+        }
+
+        .status-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 20px;
+            padding: 25px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--accent-blue);
+        }
+
+        .status-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-card-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--success-color);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--success-color);
+            animation: pulseAnim 2s infinite;
+        }
+
+        @keyframes pulseAnim {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        /* Quick Actions */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .quick-action-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            color: var(--text-main);
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action-btn i {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+        }
+
+        .quick-action-btn:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px var(--accent-glow);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-primary);
+            padding-bottom: 15px;
         }
 
         .section-title {
             color: var(--accent-blue);
             font-size: 1.75rem;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--border-primary);
-            padding-bottom: 12px;
-            display: inline-block;
-            text-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 0 15px var(--accent-glow);
         }
 
-        .section-description {
-            color: var(--text-muted);
-            font-size: 1.02rem;
-            margin-bottom: 25px;
-        }
-
-        /* ПОКРАЩЕНА БІРЖА ТА АКТИВНІСТЬ */
+        /* Market / Economy Stock Metrics */
         .stock-metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -193,25 +353,22 @@
         }
 
         .stock-metric-card {
-            background: linear-gradient(135deg, #101c3d 0%, #070d1f 100%);
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
             border-radius: 18px;
             padding: 22px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .stock-metric-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-blue);
-            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.35);
         }
 
         .stock-metric-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 8px;
             text-transform: uppercase;
@@ -221,9 +378,8 @@
         .stock-metric-value {
             font-size: 1.8rem;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
             margin-bottom: 6px;
-            text-shadow: 0 0 15px rgba(255,255,255,0.2);
         }
 
         .stock-metric-badge {
@@ -234,101 +390,61 @@
             font-weight: 700;
             padding: 4px 10px;
             border-radius: 20px;
-        }
-
-        .stock-badge-positive {
             background: rgba(34, 197, 94, 0.15);
             color: var(--success-color);
             border: 1px solid rgba(34, 197, 94, 0.3);
-            text-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
         }
 
+        /* Chart Wrapper */
         .chart-box-wrapper {
             position: relative;
             width: 100%;
-            height: 480px; /* Зробили графік вищим і довшим */
-            background: linear-gradient(135deg, #070d1f 0%, #030612 100%);
+            height: 450px;
+            background: var(--bg-card);
             padding: 25px;
             border-radius: 20px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: inset 0 0 35px rgba(0,0,0,0.8), 0 0 40px rgba(14, 165, 233, 0.15);
-        }
-
-        /* Стилі для випадаючих списків */
-        .dropdown-element {
-            margin-top: 16px;
-        }
-
-        .dropdown-toggle-btn {
-            background: linear-gradient(135deg, #131d38 0%, #0a1124 100%);
-            color: var(--text-main);
-            cursor: pointer;
-            padding: 18px 24px;
-            width: 100%;
             border: 1px solid var(--border-primary);
-            text-align: left;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 16px;
+            box-shadow: inset 0 0 35px rgba(0,0,0,0.5);
+        }
+
+        .chart-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all var(--transition-speed);
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
         }
 
-        .dropdown-toggle-btn:hover {
-            background: linear-gradient(135deg, #1c2d56 0%, #111a35 100%);
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-blue);
+            color: #fff;
             border-color: var(--accent-blue);
-            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
-        .dropdown-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
-            background-color: var(--bg-secondary);
-            border-radius: 0 0 16px 16px;
-            padding: 0 24px;
-            border: 1px solid transparent;
-        }
-
-        .dropdown-panel.expanded {
-            max-height: 1500px;
-            padding: 24px;
-            margin-top: 4px;
-            border-color: rgba(56, 189, 248, 0.2);
-        }
-
-        .dropdown-panel p, .dropdown-panel ul {
-            color: #d1d5db;
-            font-size: 0.98rem;
-            margin-bottom: 12px;
-        }
-
-        .dropdown-panel ul { padding-left: 22px; }
-        .dropdown-panel li { margin-bottom: 8px; }
-
-        .notice-box {
-            background: rgba(14, 165, 233, 0.12);
-            border-left: 4px solid var(--accent-blue);
-            padding: 16px;
-            margin-top: 18px;
-            border-radius: 0 12px 12px 0;
-            font-size: 0.95rem;
-            color: #ffffff;
-        }
-
+        /* Staff Grid (зменшено кількість суддів на 1 людину за запитом) */
         .staff-grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 24px;
             margin-top: 25px;
         }
 
         .staff-profile-card {
-            background: linear-gradient(135deg, #131e3b 0%, #080f24 100%);
+            background: var(--bg-card);
             border: 1px solid var(--border-primary);
-            padding: 35px 22px;
+            padding: 30px 20px;
             border-radius: 20px;
             text-align: center;
             transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
@@ -344,435 +460,491 @@
         }
 
         .staff-profile-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-8px);
             border-color: var(--accent-blue);
-            box-shadow: 0 20px 45px rgba(14, 165, 233, 0.4);
+            box-shadow: 0 20px 45px var(--accent-glow);
         }
 
         .staff-avatar-wrapper {
-            width: 105px;
-            height: 105px;
-            margin: 0 auto 20px auto;
-            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px auto;
             border-radius: 50%;
             padding: 3px;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
         }
 
-        .staff-avatar-wrapper img {
-            width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid var(--bg-card); display: block;
-        }
-
         .avatar-fallback {
-            width: 100%; height: 100%; border-radius: 50%; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; border: 3px solid var(--bg-card); color: var(--accent-blue);
+            width: 100%; height: 100%; border-radius: 50%; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; border: 3px solid var(--bg-card); color: var(--accent-blue);
         }
 
-        .staff-profile-card h3 { font-size: 1.35rem; margin-bottom: 8px; color: var(--text-main); }
-        .staff-role-badge { color: var(--accent-blue); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; display: inline-block; background: rgba(14, 165, 233, 0.15); padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(14, 165, 233, 0.3); }
-        .staff-contacts-info { font-size: 0.95rem; color: var(--text-muted); word-break: break-all; }
+        .staff-profile-card h3 { font-size: 1.25rem; margin-bottom: 6px; color: var(--text-main); }
+        .staff-role-badge { color: var(--accent-blue); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; display: inline-block; background: rgba(14, 165, 233, 0.15); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(14, 165, 233, 0.3); }
+        .staff-contacts-info { font-size: 0.9rem; color: var(--text-muted); word-break: break-all; }
         .staff-contacts-info a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
-        .staff-contacts-info a:hover { color: var(--accent-blue-hover); text-decoration: underline; }
 
+        /* Tables & Analytics */
         .table-box-wrapper {
-            width: 100%; overflow-x: auto; margin-top: 25px; border-radius: 20px; border: 1px solid var(--border-primary); background-color: var(--bg-secondary);
+            width: 100%; overflow-x: auto; margin-top: 25px; border-radius: 20px; border: 1px solid var(--border-primary); background-color: var(--bg-card);
         }
 
-        .analytics-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.98rem; white-space: nowrap; }
-        .analytics-table th, .analytics-table td { padding: 18px 22px; border-bottom: 1px solid var(--border-primary); color: #f8fafc !important; }
-        .analytics-table th { background-color: #111d38 !important; color: var(--accent-blue) !important; font-weight: 600; text-transform: uppercase; font-size: 0.82rem; letter-spacing: 1px; }
-        .analytics-table tbody tr { background-color: #070d1b !important; }
-        .analytics-table tr:nth-child(even) { background-color: #0a1226 !important; }
-        .analytics-table tr:hover { background-color: rgba(14, 165, 233, 0.2) !important; }
+        .analytics-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; white-space: nowrap; }
+        .analytics-table th, .analytics-table td { padding: 16px 20px; border-bottom: 1px solid var(--border-primary); color: var(--text-main); }
+        .analytics-table th { background-color: var(--bg-secondary); color: var(--accent-blue); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .analytics-table tbody tr:hover { background-color: var(--bg-card-hover); }
 
-        .status-up { color: var(--success-color); font-weight: bold; }
-        .status-stable { color: var(--accent-blue); font-weight: bold; }
-
-        .event-detailed-card {
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(13, 21, 39, 0.98));
-            border: 1px solid var(--accent-blue); border-radius: 20px; padding: 32px; margin-top: 30px; box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);
+        /* News & Updates Branch */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
-        .event-detailed-card h3 { color: var(--accent-blue); font-size: 1.5rem; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
-        .event-detailed-card p { color: #d1d5db; font-size: 1rem; margin-bottom: 16px; line-height: 1.7; }
-        .event-benefits-list { list-style-type: none; padding-left: 0; margin-bottom: 22px; }
-        .event-benefits-list li { position: relative; padding-left: 26px; margin-bottom: 10px; color: #e2e8f0; font-size: 0.98rem; }
-        .event-benefits-list li::before { content: "✔"; position: absolute; left: 0; color: var(--success-color); font-weight: bold; }
-        .event-schedule-container { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 18px; border-top: 1px solid var(--border-primary); padding-top: 18px; }
-        .schedule-badge { background: #111d38; border: 1px solid var(--accent-blue); color: #ffffff; padding: 12px 20px; border-radius: 14px; font-weight: bold; font-size: 1.02rem; }
 
-        .owner-news-branch {
-            background: linear-gradient(135deg, #0d1527 0%, #070d1c 100%); border: 1px dashed var(--accent-blue); border-radius: 20px; padding: 32px; margin-top: 35px;
+        .news-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
         }
-        .owner-news-branch h3 { color: var(--accent-blue); font-size: 1.35rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .owner-news-branch p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 12px; line-height: 1.7; }
 
+        .news-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        .news-date {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .news-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .news-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        /* Modals & Dialogs */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 600px;
+            padding: 35px;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            color: var(--text-muted);
+            width: 35px; height: 35px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--text-main);
+            border-color: var(--danger-color);
+        }
+
+        /* Footer */
         .portal-footer {
-            text-align: center; padding: 30px 20px; background: linear-gradient(135deg, #0d1527 0%, #070c1a 100%); border: 1px solid var(--border-primary); border-radius: 20px; color: var(--text-muted); font-size: 0.95rem; margin-top: 35px;
+            text-align: center;
+            padding: 30px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .sticky-navbar { padding: 15px 20px; }
+            .nav-links { display: none; }
+            body { padding-top: 80px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        
-        <header class="portal-header animate-on-scroll">
-            <h1>🏛️ Офіційний Портал Судової Системи Ukraine RP</h1>
-            <p>Централізований державний реєстр судових проваджень, регламентів, звітності та керівного складу колегії</p>
-        </header>
+    <nav class="sticky-navbar">
+        <div class="nav-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <i class="fa-solid fa-scale-balanced"></i> СУД UKRAINE RP
+        </div>
+        <ul class="nav-links">
+            <li><a href="#dashboard" class="active">Дашборд</a></li>
+            <li><a href="#analytics">Аналітика</a></li>
+            <li><a href="#staff">Колектив</a></li>
+            <li><a href="#market">Біржа</a></li>
+            <li><a href="#news">Новини</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="icon-btn" id="searchBtn" title="Пошук (Ctrl+K)"><i class="fa-solid fa-search"></i></button>
+            <button class="icon-btn" id="notificationsBtn" title="Сповіщення">
+                <i class="fa-solid fa-bell"></i>
+                <span class="badge-counter" id="notifCounter">3</span>
+            </button>
+            <button class="icon-btn" id="settingsBtn" title="Налаштування"><i class="fa-solid fa-gear"></i></button>
+        </div>
+    </nav>
 
-        <div class="hero-info-box animate-on-scroll">
-            <h2>⚖️ СУД ІНФО UKRAINE RP ⚖️</h2>
-            <p>Головний інформаційний центр судової системи! Тут зібрані всі офіційні правила дотримання законів, регламенти захисту прав громадян, розклад засідань та інструкції з взаємодії з державними органами на нашому сервері.</p>
-            <p>Наша мета — забезпечити максимальну прозорість, справедливість та високий рівень рольової гри (RP) для кожного гравця Ukraine RP.</p>
+    <div class="main-container">
+
+        <div class="mega-title-wrapper">
+            <h1 class="mega-title">СУДОВИЙ ПОРТАЛ</h1>
+            <p class="mega-subtitle">Офіційна електронна система правосуддя та державного нагляду Ukraine RP</p>
         </div>
 
-        <section class="content-section animate-on-scroll">
-            <h2 class="section-title">📈 Біржа Активності та Статистика Суду</h2>
-            <p class="section-description">Розширена аналітика, показники продуктивності колегії та інтерактивна динаміка розгляду позовів у реальному часі:</p>
-<div class="chart-box-wrapper">
-                <canvas id="courtStockChart"></canvas>
+        <div class="hero-status-grid" id="dashboard">
+            <div class="status-card">
+                <div class="status-card-header">
+                    <span>Статус системи</span>
+                    <i class="fa-solid fa-server" style="color: var(--accent-blue);"></i>
+                </div>
+                <div class="status-card-value">99.98%</div>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span> Всі системи штатні
+                </div>
             </div>
-        </section>
+            <div class="status-card">
+                <div class="status-card-header">
+                    <span>Активні гравці</span>
+                    <i class="fa-solid fa-users" style="color: var(--accent-purple);"></i>
+                </div>
+                <div class="status-card-value" id="activeUsersCount">1,248</div>
+                <div class="status-indicator" style="color: var(--accent-blue);">
+                    <i class="fa-solid fa-arrow-trend-up"></i> +12.4% за тиждень
+                </div>
+            </div>
+            <div class="status-card">
+                <div class="status-card-header">
+                    <span>Судді онлайн</span>
+                    <i class="fa-solid fa-gavel" style="color: var(--success-color);"></i>
+                </div>
+                <div class="status-card-value">2 / 3</div>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span> На зв'язку
+                </div>
+            </div>
+            <div class="status-card">
+                <div class="status-card-header">
+                    <span>Апеляції (48 год)</span>
+                    <i class="fa-solid fa-file-shield" style="color: var(--warning-color);"></i>
+                </div>
+                <div class="status-card-value">0 затримок</div>
+                <div class="status-indicator" style="color: var(--warning-color);">
+                    Регламент активний
+                </div>
+            </div>
+        </div>
 
-        <section class="content-section animate-on-scroll">
-            <h2 class="section-title">⚖️ Нормативно-правова база та Правила Сервера</h2>
-            <p class="section-description">Детальні інструкції щодо поведінки, етики, законності дій та нові розширені регламенти:</p>
+        <div class="quick-actions-grid">
+            <div class="quick-action-btn" onclick="scrollToSection('analytics')">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Аналітика</span>
+            </div>
+            <div class="quick-action-btn" onclick="scrollToSection('staff')">
+                <i class="fa-solid fa-user-tie"></i>
+                <span>Колектив</span>
+            </div>
+            <div class="quick-action-btn" onclick="scrollToSection('market')">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Біржа Активності</span>
+            </div>
+            <div class="quick-action-btn" onclick="scrollToSection('news')">
+                <i class="fa-solid fa-bullhorn"></i>
+                <span>Новини</span>
+            </div>
+            <div class="quick-action-btn" onclick="openModal('settingsModal')">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Налаштування</span>
+            </div>
+        </div>
+
+        <div class="content-section" id="analytics">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-chart-simple"></i> Статистика та графіка суду</h2>
+                <div class="chart-controls">
+                    <button class="filter-btn active" onclick="updateChartData('day')">День</button>
+                    <button class="filter-btn" onclick="updateChartData('week')">Тиждень</button>
+                    <button class="filter-btn" onclick="updateChartData('month')">Місяць</button>
+                </div>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Динаміка активності судової системи та показники розгляду справ у реальному часі.</p>
             
-            <div class="dropdown-element">
-                <button class="dropdown-toggle-btn">
-                    <span>📜 Загальна етика та правила поведінки в суді</span> 
-                    <span>▼</span>
-                </button>
-                <div class="dropdown-panel">
-                    <p><strong>Головні норми поведінки для учасників та гостей засідання:</strong></p>
-                    <ul>
-                        <li><strong>Форма звернення:</strong> До судді слід звертатися виключно офіційно та шанобливо — <em>«Ваша Честь»</em> або <em>«Шановний Судде»</em>.</li>
-                        <li><strong>Порядок у залі:</strong> Заборонено перебивати виступи інших сторін, викрикувати, провокувати конфлікти або вести себе деструктивно.</li>
-                        <li><strong>Рольова взаємодія:</strong> Усі аргументи повинні подаватися виключно через якісні RP-описи та докази (фрапси, скріншоти, свідчення очевидців).</li>
-                    </ul>
-                    <div class="notice-box">
-                        <strong>⚠️ Важливо:</strong> Порушення регламенту розглядається як неувага до суду та карається сервером або видаленням із зали засідань.
-                    </div>
+            <div class="chart-box-wrapper">
+                <canvas id="courtActivityChart"></canvas>
+            </div>
+        </div>
+
+        <div class="content-section" id="market">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-bolt"></i> Біржа активності та навантаження</h2>
+                <span style="font-size: 0.85rem; color: var(--success-color); font-weight: bold;"><span class="pulse-dot" style="display:inline-block; margin-right:5px;"></span> Оновлення кожні 15 сек</span>
+            </div>
+            
+            <div class="stock-metrics-grid">
+                <div class="stock-metric-card">
+                    <div class="stock-metric-title">Показник розгляду справ</div>
+                    <div class="stock-metric-value" id="stockMetric1">94.2%</div>
+                    <div class="stock-metric-badge"><i class="fa-solid fa-caret-up"></i> +3.1%</div>
+                </div>
+                <div class="stock-metric-card">
+                    <div class="stock-metric-title">Рівень довіри громадян</div>
+                    <div class="stock-metric-value" id="stockMetric2">88.7%</div>
+                    <div class="stock-metric-badge"><i class="fa-solid fa-caret-up"></i> +1.5%</div>
+                </div>
+                <div class="stock-metric-card">
+                    <div class="stock-metric-title">Швидкість апеляцій</div>
+                    <div class="stock-metric-value" id="stockMetric3">12.4 год</div>
+                    <div class="stock-metric-badge" style="background: rgba(14, 165, 233, 0.15); color: var(--accent-blue); border-color: rgba(14, 165, 233, 0.3);"><i class="fa-solid fa-check"></i> Норма (48г)</div>
                 </div>
             </div>
+        </div>
 
-            <div class="dropdown-element">
-                <button class="dropdown-toggle-btn">
-                    <span>🛡️ Правила обшуку та законність дій держструктур</span> 
-                    <span>▼</span>
-                </button>
-                <div class="dropdown-panel">
-                    <p><strong>Стандарти проведення процесуальних дій:</strong></p>
-                    <ul>
-                        <li>Обшук або затримання вважаються легітимними лише за наявності вагомої RP-підстави та правильного відігравання через команди <code>/me</code>, <code>/do</code>.</li>
-                        <li>Будь-які докази, зібрані з порушенням серверних правил або чинного законодавства, визнаються судом недійсними.</li>
-                        <li>Кожен громадянин має право на виклик адвоката та оскарження неправомірних дій у судовому порядку.</li>
-                    </ul>
-                </div>
+        <div class="content-section" id="staff">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-users-gear"></i> Керівництво та колектив суду</h2>
             </div>
-
-            <div class="dropdown-element">
-                <button class="dropdown-toggle-btn">
-                    <span>⚖️ Новий регламент: Порядок подачі та розгляду апеляцій</span> 
-                    <span>▼</span>
-                </button>
-                <div class="dropdown-panel">
-                    <p><strong>Додаткові логічні правила оскарження рішень:</strong></p>
-                    <ul>
-                        <li><strong>Строки подачі:</strong> Громадянин або державна структура має право подати апеляційну скаргу протягом 48 годин з моменту оголошення попереднього рішення суду.</li>
-                        <li><strong>Пакет документів:</strong> До апеляції обов'язково додається повний відеозахист (фрапс) засідання або копія попереднього протоколу без замальовок чи монтажу.</li>
-                        <li><strong>Склад апеляційної колегії:</strong> Розгляд скарги проводиться спеціальною колегією з двох або більше суддів вищої кваліфікації.</li>
-                    </ul>
-                    <div class="notice-box">
-                        <strong>📌 Примітка:</strong> Подання свідомо фальшивих доказів під час апеляції тягне за собою кримінальну відповідальність за статтею про дачу неправдивих свідчень у суді.
-                    </div>
-                </div>
-            </div>
-
-            <div class="dropdown-element">
-                <button class="dropdown-toggle-btn">
-                    <span>🛡️ Новий регламент: Етика та професійні обов'язки адвокатури</span> 
-                    <span>▼</span>
-                </button>
-                <div class="dropdown-panel">
-                    <p><strong>Стандарти для представників захисту:</strong></p>
-                    <ul>
-                        <li><strong>Конфіденційність:</strong> Адвокат зобов'язаний зберігати повну таємницю довіри зі своїм клієнтом під час підготовки до судового процесу.</li>
-                        <li><strong>Підготовка лінії захисту:</strong> Представник повинен надати аргументовані докази невинуватості або пом'якшення вироку за 10 хвилин до початку відкриття судового засідання.</li>
-                        <li><strong>Коректність у спілкуванні:</strong> Заборонено використовувати ненормативну лексику чи тиснути на свідків під час перехресного допиту.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="dropdown-element">
-                <button class="dropdown-toggle-btn">
-                    <span>🤖 Про офіційний Судовий Бот Ukraine RP</span> 
-                    <span>▼</span>
-                </button>
-                <div class="dropdown-panel">
-                    <p>Наш інтегрований судовий бот створений для автоматизації подачі позовів, перевірки статусів справ та оперативної комунікації з громадянами.</p>
-                    <p><strong>Основні можливості бота:</strong></p>
-                    <ul>
-                        <li>Миттєва подача електронної заяви до суду.</li>
-                        <li>Сповіщення про дати та час призначених засідань.</li>
-                        <li>Швидкий доступ до контактів суддів та адвокатів.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section animate-on-scroll">
-            <h2 class="section-title">🏛️ Колектив суду та Адвокатура</h2>
-            <p class="section-description">Офіційний кадровий склад керівництва, суддівської колегії, стажерів та представників захисту:</p>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Склад судової системи Ukraine RP, контакти та адміністративні ролі.</p>
             
             <div class="staff-grid-container">
                 <div class="staff-profile-card">
                     <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Arseniy_zabanen" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '⚖️'}))">
-                    </div>
-                    <h3>Arseniy_zabanen</h3>
-                    <div class="staff-role-badge">Головний Суддя (ГС)</div>
-                    <div class="staff-contacts-info">Roblox: Arseniy_zabanen<br>TG: <a href="https://t.me/Samyry228" target="_blank">@Samyry228</a></div>
-                </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="mummu228kuku" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '🛡️'}))">
-                    </div>
-                    <h3>mummu228kuku</h3>
-                    <div class="staff-role-badge">Заступник</div>
-                    <div class="staff-contacts-info">Roblox: mummu228kuku<br>TG: <a href="https://t.me/here_everyone" target="_blank">@here_everyone</a></div>
-                </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="svervanchick" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '📜'}))">
-                    </div>
-                    <h3>svervanchick</h3>
-                    <div class="staff-role-badge">Суддя</div>
-                    <div class="staff-contacts-info">Roblox: svervanchick<br>TG: <a href="https://t.me/Svervanchik" target="_blank">@Svervanchik</a></div>
-                </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Huhaidjopy" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '🏛️'}))">
-                    </div>
-                    <h3>Huhaidjopy</h3>
-                    <div class="staff-role-badge">Суддя</div>
-                    <div class="staff-contacts-info">Roblox: Huhaidjopy<br>TG: <a href="https://t.me/bewewewewewe" target="_blank">@bewewewewewe</a></div>
-                </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Mr_Zver3000" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '⚡'}))">
+                        <div class="avatar-fallback"><i class="fa-solid fa-bolt"></i></div>
                     </div>
                     <h3>Mr_Zver3000</h3>
-                    <div class="staff-role-badge">Суддя</div>
-                    <div class="staff-contacts-info">Roblox: Mr_Zver3000<br>TG: <a href="https://t.me/GreyFild_OFF" target="_blank">@GreyFild_OFF</a></div>
-                </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Zaj_zuda3" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '💼'}))">
+                    <div class="staff-role-badge">Суддя / Головний</div>
+                    <div class="staff-contacts-info">
+                        Roblox: Mr_Zver3000<br>
+                        TG: <a href="https://t.me/GreyFild_OFF" target="_blank">@GreyFild_OFF</a>
                     </div>
-                    <h3>Zaj_zuda3</h3>
-                    <div class="staff-role-badge">Адвокат</div>
-                    <div class="staff-contacts-info">Roblox: Zaj_zuda3<br>TG: <a href="https://t.me/Dz7xj" target="_blank">@Dz7xj</a></div>
                 </div>
 
                 <div class="staff-profile-card">
                     <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="heehrhrhl18" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '🔍'}))">
+                        <div class="avatar-fallback"><i class="fa-solid fa-user-graduate"></i></div>
                     </div>
                     <h3>heehrhrhl18</h3>
                     <div class="staff-role-badge">Стажер-суддя</div>
-                    <div class="staff-contacts-info">Roblox: heehrhrhl18<br>TG: <a href="https://t.me/hehr18_UR" target="_blank">@hehr18_UR</a></div>
+                    <div class="staff-contacts-info">
+                        Статус: Активний стажер<br>
+                        TG: Інтегровано в кадри
+                    </div>
                 </div>
 
                 <div class="staff-profile-card">
                     <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Itz_raose" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '🔍'}))">
+                        <div class="avatar-fallback"><i class="fa-solid fa-user-graduate"></i></div>
                     </div>
                     <h3>Itz_raose</h3>
                     <div class="staff-role-badge">Стажер-суддя</div>
-                    <div class="staff-contacts-info">Roblox: Itz_raose<br>TG: <a href="https://t.me/ob1zyan" target="_blank">@ob1zyan</a></div>
+                    <div class="staff-contacts-info">
+                        Статус: Активний стажер<br>
+                        TG: Інтегровано в кадри
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="content-section animate-on-scroll">
-            <h2 class="section-title">📊 Детальна архівна таблиця звітів та порушень</h2>
-            <p class="section-description">У звітах нижче зібрано повну статистику розгляду справ, аналіз порушень серверних регламентів та ефективність роботи колегії:</p>
-
-            <div class="table-box-wrapper">
-                <table class="analytics-table">
-                    <thead>
-                        <tr>
-                            <th>Звітний період</th>
-                            <th>Опрацьовано справ</th>
-                            <th>Порушення регламентів</th>
-                            <th>Статус системи</th>
-                            <th>Головна подія періоду</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>4 липня – 3 серпня 2026</strong></td>
-                            <td><span class="status-up">573 справи</span></td>
-                            <td>9 інцидентів (Пункт 16)</td>
-                            <td><span class="status-up">⚡ Штатний режим</span></td>
-                            <td>Оброблено 161 звіт (502 години роботи).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Червень – Липень 2026</strong></td>
-                            <td><span class="status-up">570 справ</span></td>
-                            <td>38 інцидентів</td>
-                            <td><span class="status-up">🚀 Пік активності</span></td>
-                            <td>Максимальна продуктивність колегії.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Травень – Червень 2026</strong></td>
-                            <td>310 справ</td>
-                            <td>21 інцидент</td>
-                            <td><span class="status-stable">⚖️ Стабільний режим</span></td>
-                            <td>Якісне виконання регламентів.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Січень – Лютий 2026</strong></td>
-                            <td>329 засідань</td>
-                            <td>29 інцидентів</td>
-                            <td><span class="status-stable">🤖 Цифровізація</span></td>
-                            <td>Запуск інформаційного бота.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Грудень 2025 – Січень 2026</strong></td>
-                            <td><span class="status-up">657 справ</span></td>
-                            <td>52 інциденти</td>
-                            <td><span class="status-up">⚡ Рекорд</span></td>
-                            <td>Найвище навантаження в історії.</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="content-section" id="news">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> Новини та оновлення суду</h2>
             </div>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Актуальні внутрішні новини, регламенти та оновлення порталу.</p>
 
-            <div class="event-detailed-card">
-                <h3>🏛️ Івент: День Відкритих Дверей Суду</h3>
-                <p><strong>Чому цей івент корисний для гравців?</strong> День відкритих дверей — це унікальна можливість зазирнути за лаштунки судової системи, зрозуміти свої права та навчитися грамотно захищати себе в рольових ситуаціях без порушення правил сервера.</p>
-                
-                <p><strong>Переваги участі:</strong></p>
-                <ul class="event-benefits-list">
-                    <li>Живе спілкування з досвідченими суддями та адвокатами.</li>
-                    <li>Розбір реальних кейсів та процесуальних помилок.</li>
-                    <li>Унікальний ігровий досвід та гарний настрій.</li>
-                </ul>
-
-                <p><strong>Графік проведення івенту:</strong></p>
-                <div class="event-schedule-container">
-                    <span class="schedule-badge">📅 09 число місяця</span>
-                    <span class="schedule-badge">📅 17 число місяця</span>
-                    <span class="schedule-badge">📅 29 число місяця</span>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div>
+                        <div class="news-date">Вчора, 10 серпня</div>
+                        <div class="news-title">Етика, професійні обов'язки та апеляції</div>
+                        <div class="news-desc">Додано правила конфіденційності, вимоги до лінії захисту, а також встановлено суворий строк подачі апеляцій — 48 годин з визначенням необхідного пакету документів.</div>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-blue); font-weight: 600;">Офіційний регламент</span>
+                </div>
+                <div class="news-card">
+                    <div>
+                        <div class="news-date">Сьогодні</div>
+                        <div class="news-title">Масштабний редизайн сайту</div>
+                        <div class="news-desc">Покращено темний стиль порталу, додано сучасні градієнти, тіні, ефекти скла, а також анімацію блоків і розширену біржу активності.</div>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--success-color); font-weight: 600;">Версія 2.5.0</span>
+                </div>
+                <div class="news-card">
+                    <div>
+                        <div class="news-date">Анонс</div>
+                        <div class="news-title">День відкритих дверей</div>
+                        <div class="news-desc">Слідкуйте за розкладом івенту для нових стажерів та громадян, які бажають ознайомитися з роботою судової системи Ukraine RP.</div>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--warning-color); font-weight: 600;">Подія</span>
                 </div>
             </div>
+        </div>
 
-            <div class="owner-news-branch">
-                <h3>📢 Новини та оновлення від керівництва суду</h3>
-                <p>У цій гілці суд та власник сайту публікують актуальні внутрішні новини, майбутні оновлення судової системи, а також корисні поради щодо покращення рольової гри на сервері. Слідкуйте за оновленнями порталу, щоб бути в курсі найважливіших державних подій Ukraine RP!</p>
-            </div>
-        </section>
-
-        <footer class="portal-footer animate-on-scroll">
-            <p>&copy; 2026 Офіційний Портал Судової Системи Ukraine RP. Усі права захищені.</p>
+        <footer class="portal-footer">
+            <p>© 2026 Суд Ukraine RP. Всі права захищені. Офіційний портал судової системи.</p>
+            <p style="margin-top: 5px; font-size: 0.8rem;">SYSTEM VERSION v2.5.0 • STATUS: OPERATIONAL</p>
         </footer>
+
+    </div>
+
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-container">
+            <div class="modal-close" onclick="closeModal('settingsModal')"><i class="fa-solid fa-xmark"></i></div>
+            <h2 style="color: var(--accent-blue); margin-bottom: 20px;"><i class="fa-solid fa-gear"></i> Налаштування порталу</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Виберіть тему оформлення інтерфейсу:</p>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <button class="filter-btn active" onclick="setTheme('dark')">Dark Navy</button>
+                <button class="filter-btn" onclick="setTheme('midnight')">Midnight Black</button>
+                <button class="filter-btn" onclick="setTheme('cyber')">Cyber Neon</button>
+                <button class="filter-btn" onclick="setTheme('light')">Light Mode</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const observerOptions = { threshold: 0.1 };
+        // Smooth scrolling for navigation
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if(el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+        // Modals Management
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
 
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                observer.observe(el);
-            });
-
-            const dropdownBtns = document.querySelectorAll('.dropdown-toggle-btn');
-            dropdownBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const panel = this.nextElementSibling;
-                    const arrowSpan = this.querySelector('span:last-child');
-                    
-                    panel.classList.toggle('expanded');
-                    arrowSpan.textContent = panel.classList.contains('expanded') ? '▲' : '▼';
-                });
-            });
-
-            // Налаштування та запуск графіка з довгою плавною анімацією
-            const ctx = document.getElementById('courtStockChart').getContext('2d');
-            const chartGradient = ctx.createLinearGradient(0, 0, 0, 400);
-            chartGradient.addColorStop(0, 'rgba(14, 165, 233, 0.55)');
-            chartGradient.addColorStop(1, 'rgba(14, 165, 233, 0.0)');
-
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень (+)', 'Вересень (План)'],
-                    datasets: [{
-                        label: 'Динаміка успішно розглянутих справ (+ стабільний ріст)',
-                        data: [210, 260, 329, 390, 440, 570, 573, 640, 710],
-                        borderColor: '#38bdf8',
-                        borderWidth: 4,
-                        pointBackgroundColor: '#818cf8',
-                        pointBorderColor: '#ffffff',
-                        pointBorderWidth: 2,
-                        pointRadius: 6,
-                        pointHoverRadius: 9,
-                        backgroundColor: chartGradient,
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: {
-                        duration: 2500, // Довга та плавна анімація появи графіка
-                        easing: 'easeOutQuart'
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#f8fafc',
-                                font: { size: 13, family: "'Segoe UI', Roboto, sans-serif" }
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(11, 19, 41, 0.95)',
-                            titleColor: '#38bdf8',
-                            bodyColor: '#f8fafc',
-                            borderColor: '#38bdf8',
-                            borderWidth: 1,
-                            padding: 12
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: { color: 'rgba(30, 41, 59, 0.5)' },
-                            ticks: { color: '#94a3b8', font: { size: 12 } }
-                        },
-                        y: {
-                            grid: { color: 'rgba(30, 41, 59, 0.5)' },
-                            ticks: { color: '#94a3b8', font: { size: 12 } }
-                        }
-                    }
-                }
-            });
+        document.getElementById('settingsBtn').addEventListener('click', () => openModal('settingsModal'));
+        document.getElementById('searchBtn').addEventListener('click', () => {
+            alert('Глобальний пошук: введіть запит для швидкого навігування по розділах суду.');
         });
+        document.getElementById('notificationsBtn').addEventListener('click', () => {
+            alert('У вас 3 нових сповіщення: оновлення регламенту апеляцій, нові стажери-судді та технічні роботи на порталі.');
+            document.getElementById('notifCounter').style.display = 'none';
+        });
+
+        // Theme Switcher
+        function setTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('court_theme', themeName);
+            document.querySelectorAll('#settingsModal .filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        const savedTheme = localStorage.getItem('court_theme');
+        if(savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        // Chart.js Setup with live feel
+        const ctx = document.getElementById('courtActivityChart').getContext('2d');
+        let courtChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'],
+                datasets: [{
+                    label: 'Активність суду',
+                    data: [12, 19, 15, 25, 22, 30, 38],
+                    borderColor: '#0ea5e9',
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#f8fafc' } }
+                },
+                scales: {
+                    x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+                }
+            }
+        });
+
+        function updateChartData(period) {
+            document.querySelectorAll('#analytics .filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if(period === 'day') {
+                courtChart.data.labels = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
+                courtChart.data.datasets[0].data = [4, 2, 8, 22, 35, 28];
+            } else if(period === 'week') {
+                courtChart.data.labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+                courtChart.data.datasets[0].data = [12, 19, 15, 25, 22, 30, 38];
+            } else if(period === 'month') {
+                courtChart.data.labels = ['Тиждень 1', 'Тиждень 2', 'Тиждень 3', 'Тиждень 4'];
+                courtChart.data.datasets[0].data = [95, 110, 130, 155];
+            }
+            courtChart.update();
+        }
+
+        // Animated Stock / Statistics simulation (прыгает каждые 15 секунд по запросу)
+        setInterval(() => {
+            const randomVal1 = (93 + Math.random() * 3).toFixed(1) + '%';
+            const randomVal2 = (87 + Math.random() * 3).toFixed(1) + '%';
+            document.getElementById('stockMetric1').innerText = randomVal1;
+            document.getElementById('stockMetric2').innerText = randomVal2;
+            
+            // Randomize active users slightly for realistic feel
+            const currentUsers = 1248 + Math.floor(Math.random() * 20) - 10;
+            document.getElementById('activeUsersCount').innerText = currentUsers.toLocaleString();
+        }, 15000);
     </script>
 </body>
 </html>
