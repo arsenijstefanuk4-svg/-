@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="uk" data-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -182,106 +181,118 @@
             margin: 0 auto;
         }
 
-        /* Mega Title */
-        .mega-title-wrapper {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            position: relative;
-        }
-
-        .mega-title {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            background: linear-gradient(135deg, var(--accent-blue) 0%, #ffffff 50%, var(--accent-purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 35px var(--accent-glow));
-            margin-bottom: 10px;
-        }
-
-        .mega-subtitle {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-        }
-
-        /* Hero Info Box (System Status Grid) */
-        .hero-status-grid {
+        /* Hero Section (Bento Grid Style) */
+        .hero-bento-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
             margin-bottom: 35px;
         }
 
-        .status-card {
+        .hero-main-card {
+            background: linear-gradient(135deg, rgba(11, 20, 45, 0.95) 0%, rgba(20, 28, 79, 0.95) 100%);
+            border: 2px solid var(--accent-blue);
+            border-radius: 26px;
+            padding: 45px 35px;
+            box-shadow: 0 0 60px rgba(14, 165, 233, 0.3), inset 0 0 30px rgba(56, 189, 248, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-main-card h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 20px var(--accent-glow));
+        }
+
+        .hero-main-card p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 20px var(--accent-glow);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-primary);
+            padding: 12px 25px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            background: var(--bg-card-hover);
+        }
+
+        .hero-side-card {
             background: var(--bg-card);
             border: 1px solid var(--border-primary);
-            border-radius: 20px;
-            padding: 25px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border-radius: 26px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .status-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: var(--accent-blue);
+        .hero-side-card h3 {
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .status-card-header {
+        .live-stat-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-primary);
+            font-size: 0.95rem;
         }
 
-        .status-card-value {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 5px;
-        }
-
-        .status-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--success-color);
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--success-color);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--success-color);
-            animation: pulseAnim 2s infinite;
-        }
-
-        @keyframes pulseAnim {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-        }
+        .live-stat-row:last-child { border-bottom: none; }
 
         /* Quick Actions */
         .quick-actions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
             margin-bottom: 35px;
         }
@@ -433,7 +444,7 @@
             box-shadow: 0 0 15px var(--accent-glow);
         }
 
-        /* Staff Grid (зменшено кількість суддів на 1 людину за запитом) */
+        /* Staff Grid (Зменшено кількість суддів за запитом) */
         .staff-grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -450,6 +461,7 @@
             transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .staff-profile-card::before {
@@ -483,16 +495,6 @@
         .staff-contacts-info { font-size: 0.9rem; color: var(--text-muted); word-break: break-all; }
         .staff-contacts-info a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
 
-        /* Tables & Analytics */
-        .table-box-wrapper {
-            width: 100%; overflow-x: auto; margin-top: 25px; border-radius: 20px; border: 1px solid var(--border-primary); background-color: var(--bg-card);
-        }
-
-        .analytics-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; white-space: nowrap; }
-        .analytics-table th, .analytics-table td { padding: 16px 20px; border-bottom: 1px solid var(--border-primary); color: var(--text-main); }
-        .analytics-table th { background-color: var(--bg-secondary); color: var(--accent-blue); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
-        .analytics-table tbody tr:hover { background-color: var(--bg-card-hover); }
-
         /* News & Updates Branch */
         .news-grid {
             display: grid;
@@ -510,6 +512,7 @@
             flex-direction: column;
             justify-content: space-between;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .news-card:hover {
@@ -536,6 +539,47 @@
             color: var(--text-muted);
             margin-bottom: 15px;
         }
+
+        /* Intelligence & System Health Section */
+        .intelligence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .intel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .intel-card h3 {
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .intel-list {
+            list-style: none;
+        }
+
+        .intel-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-primary);
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .intel-list li:last-child { border-bottom: none; }
 
         /* Modals & Dialogs */
         .modal-overlay {
@@ -604,8 +648,25 @@
             margin-top: 40px;
         }
 
+        /* Pulse dot */
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--success-color);
+            animation: pulseAnim 2s infinite;
+        }
+
+        @keyframes pulseAnim {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
         /* Responsive */
-        @media(max-width: 768px) {
+        @media(max-width: 900px) {
+            .hero-bento-grid { grid-template-columns: 1fr; }
             .sticky-navbar { padding: 15px 20px; }
             .nav-links { display: none; }
             body { padding-top: 80px; }
@@ -637,57 +698,39 @@
 
     <div class="main-container">
 
-        <div class="mega-title-wrapper">
-            <h1 class="mega-title">СУДОВИЙ ПОРТАЛ</h1>
-            <p class="mega-subtitle">Офіційна електронна система правосуддя та державного нагляду Ukraine RP</p>
-        </div>
-
-        <div class="hero-status-grid" id="dashboard">
-            <div class="status-card">
-                <div class="status-card-header">
-                    <span>Статус системи</span>
-                    <i class="fa-solid fa-server" style="color: var(--accent-blue);"></i>
-                </div>
-                <div class="status-card-value">99.98%</div>
-                <div class="status-indicator">
-                    <span class="pulse-dot"></span> Всі системи штатні
+        <div class="hero-bento-grid" id="dashboard">
+            <div class="hero-main-card">
+                <h1>Електронна Судова Система</h1>
+                <p>Офіційний портал державного нагляду та правосуддя Ukraine RP. Високий рівень безпеки, прозорі процеси, миттєва апеляційна підтримка та актуальний моніторинг.</p>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="scrollToSection('analytics')"><i class="fa-solid fa-chart-line"></i> Відкрити аналітику</button>
+                    <button class="btn-secondary" onclick="scrollToSection('staff')"><i class="fa-solid fa-user-tie"></i> Суддівський склад</button>
                 </div>
             </div>
-            <div class="status-card">
-                <div class="status-card-header">
+            <div class="hero-side-card">
+                <h3><i class="fa-solid fa-server"></i> Стан Системи</h3>
+                <div class="live-stat-row">
+                    <span>Статус</span>
+                    <span style="color: var(--success-color); font-weight: bold; display: flex; align-items: center; gap: 5px;"><span class="pulse-dot"></span> Оперативно</span>
+                </div>
+                <div class="live-stat-row">
                     <span>Активні гравці</span>
-                    <i class="fa-solid fa-users" style="color: var(--accent-purple);"></i>
+                    <strong id="activeUsersCount" style="color: var(--text-main);">1,248</strong>
                 </div>
-                <div class="status-card-value" id="activeUsersCount">1,248</div>
-                <div class="status-indicator" style="color: var(--accent-blue);">
-                    <i class="fa-solid fa-arrow-trend-up"></i> +12.4% за тиждень
-                </div>
-            </div>
-            <div class="status-card">
-                <div class="status-card-header">
+                <div class="live-stat-row">
                     <span>Судді онлайн</span>
-                    <i class="fa-solid fa-gavel" style="color: var(--success-color);"></i>
+                    <strong style="color: var(--accent-blue);">2 / 3</strong>
                 </div>
-                <div class="status-card-value">2 / 3</div>
-                <div class="status-indicator">
-                    <span class="pulse-dot"></span> На зв'язку
-                </div>
-            </div>
-            <div class="status-card">
-                <div class="status-card-header">
-                    <span>Апеляції (48 год)</span>
-                    <i class="fa-solid fa-file-shield" style="color: var(--warning-color);"></i>
-                </div>
-                <div class="status-card-value">0 затримок</div>
-                <div class="status-indicator" style="color: var(--warning-color);">
-                    Регламент активний
+                <div class="live-stat-row">
+                    <span>Uptime</span>
+                    <strong style="color: var(--success-color);">99.98%</strong>
                 </div>
             </div>
         </div>
 
         <div class="quick-actions-grid">
             <div class="quick-action-btn" onclick="scrollToSection('analytics')">
-                <i class="fa-solid fa-chart-line"></i>
+                <i class="fa-solid fa-chart-simple"></i>
                 <span>Аналітика</span>
             </div>
             <div class="quick-action-btn" onclick="scrollToSection('staff')">
@@ -695,7 +738,7 @@
                 <span>Колектив</span>
             </div>
             <div class="quick-action-btn" onclick="scrollToSection('market')">
-                <i class="fa-solid fa-chart-pie"></i>
+                <i class="fa-solid fa-bolt"></i>
                 <span>Біржа Активності</span>
             </div>
             <div class="quick-action-btn" onclick="scrollToSection('news')">
@@ -710,14 +753,14 @@
 
         <div class="content-section" id="analytics">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-chart-simple"></i> Статистика та графіка суду</h2>
+                <h2 class="section-title"><i class="fa-solid fa-chart-simple"></i> Судова Статистика</h2>
                 <div class="chart-controls">
                     <button class="filter-btn active" onclick="updateChartData('day')">День</button>
                     <button class="filter-btn" onclick="updateChartData('week')">Тиждень</button>
                     <button class="filter-btn" onclick="updateChartData('month')">Місяць</button>
                 </div>
             </div>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Динаміка активності судової системи та показники розгляду справ у реальному часі.</p>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Динаміка завантаженості суддів та розгляду позовів у реальному часі.</p>
             
             <div class="chart-box-wrapper">
                 <canvas id="courtActivityChart"></canvas>
@@ -751,12 +794,12 @@
 
         <div class="content-section" id="staff">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-users-gear"></i> Керівництво та колектив суду</h2>
+                <h2 class="section-title"><i class="fa-solid fa-users-gear"></i> Суддівський Колектив</h2>
             </div>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Склад судової системи Ukraine RP, контакти та адміністративні ролі.</p>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Професійний склад органів судової влади Ukraine RP.</p>
             
             <div class="staff-grid-container">
-                <div class="staff-profile-card">
+                <div class="staff-profile-card" onclick="openStaffModal('Mr_Zver3000', 'Суддя / Головний', 'Головує у найважливіших судових засіданнях та контролює дотримання регламенту правосуддя.', 'Roblox: Mr_Zver3000 | TG: @GreyFild_OFF')">
                     <div class="staff-avatar-wrapper">
                         <div class="avatar-fallback"><i class="fa-solid fa-bolt"></i></div>
                     </div>
@@ -764,11 +807,11 @@
                     <div class="staff-role-badge">Суддя / Головний</div>
                     <div class="staff-contacts-info">
                         Roblox: Mr_Zver3000<br>
-                        TG: <a href="https://t.me/GreyFild_OFF" target="_blank">@GreyFild_OFF</a>
+                        TG: <a href="https://t.me/GreyFild_OFF" target="_blank" onclick="event.stopPropagation()">@GreyFild_OFF</a>
                     </div>
                 </div>
 
-                <div class="staff-profile-card">
+                <div class="staff-profile-card" onclick="openStaffModal('heehrhrhl18', 'Стажер-суддя', 'Проходить спеціалізовану підготовку та розглядає базові позови під наглядом керівництва.', 'Активний стажер судової системи')">
                     <div class="staff-avatar-wrapper">
                         <div class="avatar-fallback"><i class="fa-solid fa-user-graduate"></i></div>
                     </div>
@@ -776,11 +819,11 @@
                     <div class="staff-role-badge">Стажер-суддя</div>
                     <div class="staff-contacts-info">
                         Статус: Активний стажер<br>
-                        TG: Інтегровано в кадри
+                        Кадровий резерв
                     </div>
                 </div>
 
-                <div class="staff-profile-card">
+                <div class="staff-profile-card" onclick="openStaffModal('Itz_raose', 'Стажер-суддя', 'Спеціалізується на фіксації судових засідань та первинній перевірці документації.', 'Активний стажер судової системи')">
                     <div class="staff-avatar-wrapper">
                         <div class="avatar-fallback"><i class="fa-solid fa-user-graduate"></i></div>
                     </div>
@@ -788,7 +831,7 @@
                     <div class="staff-role-badge">Стажер-суддя</div>
                     <div class="staff-contacts-info">
                         Статус: Активний стажер<br>
-                        TG: Інтегровано в кадри
+                        Кадровий резерв
                     </div>
                 </div>
             </div>
@@ -798,18 +841,18 @@
             <div class="section-header">
                 <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> Новини та оновлення суду</h2>
             </div>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Актуальні внутрішні новини, регламенти та оновлення порталу.</p>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Актуальні внутрішні новини та регламенти.</p>
 
             <div class="news-grid">
-                <div class="news-card">
+                <div class="news-card" onclick="openNewsModal('Етика, професійні обов\'язки та апеляції', 'Додано правила конфіденційності, вимоги до лінії захисту, а також встановлено суворий строк подачі апеляцій — 48 годин з визначенням необхідного пакету документів.', 'Вчора, 10 серпня')">
                     <div>
                         <div class="news-date">Вчора, 10 серпня</div>
                         <div class="news-title">Етика, професійні обов'язки та апеляції</div>
                         <div class="news-desc">Додано правила конфіденційності, вимоги до лінії захисту, а також встановлено суворий строк подачі апеляцій — 48 годин з визначенням необхідного пакету документів.</div>
                     </div>
-                    <span style="font-size: 0.85rem; color: var(--accent-blue); font-weight: 600;">Офіційний регламент</span>
+                    <span style="font-size: 0.85rem; color: var(--accent-blue); font-weight: 600;">Детальніше &rarr;</span>
                 </div>
-                <div class="news-card">
+                <div class="news-card" onclick="openNewsModal('Масштабний редизайн сайту', 'Покращено темний стиль порталу, додано сучасні градієнти, тіні, ефекти скла, а також анімацію блоків і розширену біржу активності.', 'Сьогодні')">
                     <div>
                         <div class="news-date">Сьогодні</div>
                         <div class="news-title">Масштабний редизайн сайту</div>
@@ -817,7 +860,7 @@
                     </div>
                     <span style="font-size: 0.85rem; color: var(--success-color); font-weight: 600;">Версія 2.5.0</span>
                 </div>
-                <div class="news-card">
+                <div class="news-card" onclick="openNewsModal('День відкритих дверей', 'Слідкуйте за розкладом івенту для нових стажерів та громадян, які бажають ознайомитися з роботою судової системи Ukraine RP.', 'Анонс')">
                     <div>
                         <div class="news-date">Анонс</div>
                         <div class="news-title">День відкритих дверей</div>
@@ -828,9 +871,33 @@
             </div>
         </div>
 
+        <div class="content-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-brain"></i> Інтелект системи та моніторинг</h2>
+            </div>
+            <div class="intelligence-grid">
+                <div class="intel-card">
+                    <h3><i class="fa-solid fa-chart-line" style="color: var(--accent-blue);"></i> Аналітичні висновки</h3>
+                    <ul class="intel-list">
+                        <li><i class="fa-solid fa-circle-check" style="color: var(--success-color);"></i> Активність користувачів виросла на 18% за тиждень.</li>
+                        <li><i class="fa-solid fa-circle-check" style="color: var(--success-color);"></i> Найбільш активний період: 18:00–21:00.</li>
+                        <li><i class="fa-solid fa-circle-check" style="color: var(--success-color);"></i> Усі апеляції опрацьовуються в межах 48 годин.</li>
+                    </ul>
+                </div>
+                <div class="intel-card">
+                    <h3><i class="fa-solid fa-shield-halved" style="color: var(--success-color);"></i> Безпека та Статус</h3>
+                    <ul class="intel-list">
+                        <li><span>Вебсайт API:</span> <strong style="color: var(--success-color);">Працює штатно</strong></li>
+                        <li><span>База даних:</span> <strong style="color: var(--success-color);">Захищено</strong></li>
+                        <li><span>Протоколи шифрування:</span> <strong style="color: var(--accent-blue);">Активні</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <footer class="portal-footer">
             <p>© 2026 Суд Ukraine RP. Всі права захищені. Офіційний портал судової системи.</p>
-            <p style="margin-top: 5px; font-size: 0.8rem;">SYSTEM VERSION v2.5.0 • STATUS: OPERATIONAL</p>
+            <p style="margin-top: 5px; font-size: 0.8rem;">SYSTEM VERSION v2.5.0 • STATUS: ALL SYSTEMS OPERATIONAL</p>
         </footer>
 
     </div>
@@ -849,8 +916,16 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="generalModal">
+        <div class="modal-container">
+            <div class="modal-close" onclick="closeModal('generalModal')"><i class="fa-solid fa-xmark"></i></div>
+            <h2 id="modalTitle" style="color: var(--accent-blue); margin-bottom: 15px;">Заголовок</h2>
+            <p id="modalBody" style="color: var(--text-muted); line-height: 1.7;"></p>
+        </div>
+    </div>
+
     <script>
-        // Smooth scrolling for navigation
+        // Smooth scrolling
         function scrollToSection(id) {
             const el = document.getElementById(id);
             if(el) {
@@ -864,6 +939,18 @@
         }
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
+        }
+
+        function openStaffModal(name, role, desc, contacts) {
+            document.getElementById('modalTitle').innerText = name + ' — ' + role;
+            document.getElementById('modalBody').innerHTML = '<strong>Опис:</strong> ' + desc + '<br><br><strong>Контакти:</strong> ' + contacts;
+            openModal('generalModal');
+        }
+
+        function openNewsModal(title, desc, date) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerHTML = '<span style="color: var(--accent-blue); font-weight: bold; display: block; margin-bottom: 10px;">' + date + '</span>' + desc;
+            openModal('generalModal');
         }
 
         document.getElementById('settingsBtn').addEventListener('click', () => openModal('settingsModal'));
@@ -888,7 +975,7 @@
             document.documentElement.setAttribute('data-theme', savedTheme);
         }
 
-        // Chart.js Setup with live feel
+        // Chart.js Setup
         const ctx = document.getElementById('courtActivityChart').getContext('2d');
         let courtChart = new Chart(ctx, {
             type: 'line',
@@ -934,14 +1021,13 @@
             courtChart.update();
         }
 
-        // Animated Stock / Statistics simulation (прыгает каждые 15 секунд по запросу)
+        // Animated Stock / Statistics simulation (прыгает каждые 15 секунд по вашему запросу)
         setInterval(() => {
             const randomVal1 = (93 + Math.random() * 3).toFixed(1) + '%';
             const randomVal2 = (87 + Math.random() * 3).toFixed(1) + '%';
             document.getElementById('stockMetric1').innerText = randomVal1;
             document.getElementById('stockMetric2').innerText = randomVal2;
             
-            // Randomize active users slightly for realistic feel
             const currentUsers = 1248 + Math.floor(Math.random() * 20) - 10;
             document.getElementById('activeUsersCount').innerText = currentUsers.toLocaleString();
         }, 15000);
