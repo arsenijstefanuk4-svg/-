@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +28,7 @@
             margin: 0 auto;
         }
 
-        /* 20-секундна анімація появи при скролі */
+        /* Повільна анімація появи при скролі (20 секунд) */
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(40px);
@@ -40,12 +40,44 @@
             transform: translateY(0);
         }
 
-        /* Повільні переходи 20с для інтерактивних елементів */
+        /* Плавні переходи 20с для інтерактивних елементів */
         .court-card, .dropdown-panel, .schedule-badge, .btn-action, .blacklist-card {
             transition: all 20s ease-in-out !important;
         }
 
-        /* Контейнер графіка */
+        /* Випадаючі панелі */
+        .dropdown-toggle-btn {
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--text-light);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 12px 20px;
+            width: 100%;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .dropdown-panel {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0 0 8px 8px;
+            padding: 0 20px;
+        }
+
+        .dropdown-panel.expanded {
+            max-height: 1000px;
+            padding: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-top: none;
+        }
+
+        /* Контейнер графіка з переливанням кольорів рамки */
         .chart-container {
             position: relative;
             height: 400px;
@@ -55,7 +87,6 @@
             padding: 20px;
             border: 1px solid rgba(56, 189, 248, 0.2);
             margin: 30px 0;
-            /* Анімація переливання кольору фону/рамки графіка */
             animation: chartBorderHue 20s infinite alternate linear;
         }
 
@@ -66,7 +97,7 @@
             100% { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
         }
 
-        /* Картки та мережа */
+        /* Сітка карток */
         .judges-grid, .blacklist-grid {
             display: flex;
             flex-wrap: wrap;
@@ -99,7 +130,7 @@
             margin: 8px 0;
         }
 
-        /* Розділ "Чорний список" */
+        /* Чорний список */
         .blacklist-section {
             margin-top: 40px;
             padding: 24px;
@@ -164,37 +195,43 @@
 <body>
 
     <div class="portal-container">
-        
-        <section class="animate-on-scroll">
-            <ul>
-                <li>Живе спілкування з досвідченими суддями та адвокатами.</li>
-                <li>Розбір реальних кейсів та процесуальних помилок.</li>
-                <li>Унікальний ігровий досвід та гарний настрій.</li>
-            </ul>
-
-            <p><strong>Графік проведения івенту:</strong></p>
-            <div class="event-schedule-container">
-                <span class="schedule-badge">📅 09 число місяця</span>
-                <span class="schedule-badge">📅 17 число місяця</span>
-                <span class="schedule-badge">📅 29 число місяця</span>
-            </div>
-        </section>
 
         <section class="animate-on-scroll">
-            <h3>📈 Статистика та активність Судової Системи</h3>
+            <h3>📈 Статистика та динаміка судової системи</h3>
             <div class="chart-container">
                 <canvas id="courtStockChart"></canvas>
             </div>
         </section>
 
         <section class="animate-on-scroll">
+            <button class="dropdown-toggle-btn">
+                <span>Переваги та графік івенту</span>
+                <span>▼</span>
+            </button>
+            <div class="dropdown-panel">
+                <ul>
+                    <li>Живе спілкування з досвідченими суддями та адвокатами.</li>
+                    <li>Розбір реальних кейсів та процесуальних помилок.</li>
+                    <li>Унікальний ігровий досвід та гарний настрій.</li>
+                </ul>
+
+                <p><strong>Графік проведення івенту:</strong></p>
+                <div class="event-schedule-container">
+                    <span class="schedule-badge">📅 09 число місяця</span>
+                    <span class="schedule-badge">📅 17 число місяця</span>
+                    <span class="schedule-badge">📅 29 число місяця</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="animate-on-scroll" style="margin-top: 30px;">
             <h3>⚖️ Діючий суддівський склад</h3>
             <div class="judges-grid">
                 <div class="court-card">
                     <div class="card-avatar-wrapper">
                         <span style="font-size: 2.5rem;">📜</span>
                     </div>
-                    <h3 class="judge-name">svervanchick</h3>
+                    <h3 class="judge-name">svervanchick <a href="#" class="tg-link">🔗</a></h3>
                     <span class="role-badge">СУДДЯ</span>
                     <div class="card-details">
                         <p>Roblox: svervanchick</p>
@@ -234,7 +271,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // IntersectionObserver для прокрутки (20s анімація)
+            // Анімація видимості елементів при скролі (20s)
             const observerOptions = { threshold: 0.1 };
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -249,28 +286,37 @@
                 observer.observe(el);
             });
 
-            // Налаштування та запуск динамічного графіка
-            const ctx = document.getElementById('courtStockChart').getContext('2d');
+            // Обробка випадаючих списків
+            const dropdownBtns = document.querySelectorAll('.dropdown-toggle-btn');
+            dropdownBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const panel = this.nextElementSibling;
+                    const arrowSpan = this.querySelector('span:last-child');
+                    
+                    panel.classList.toggle('expanded');
+                    arrowSpan.textContent = panel.classList.contains('expanded') ? '▲' : '▼';
+                });
+            });
 
-            // Підсумкові (стабільні) дані
+            // Налаштування та анімація графіка
+            const ctx = document.getElementById('courtStockChart').getContext('2d');
             const finalData = [210, 260, 329, 390, 440, 570, 573, 640, 710];
             const labels = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень (+)', 'Вересень (План)'];
 
-            // Створення чарту
             const courtChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Динаміка справ (Біржа активності)',
-                        data: [100, 500, 150, 600, 200, 700, 300, 650, 710], // Початкові "стрибаючі" значення
+                        label: 'Динаміка успішно розглянутих справ (+ стабільний ріст)',
+                        data: [150, 480, 200, 550, 280, 680, 350, 620, 710], // Початковий рух
                         borderColor: '#38bdf8',
                         borderWidth: 4,
                         pointBackgroundColor: '#818cf8',
                         pointBorderColor: '#ffffff',
                         pointRadius: 6,
                         fill: true,
-                        backgroundColor: 'rgba(56, 189, 248, 0.2)',
+                        backgroundColor: 'rgba(56, 189, 248, 0.25)',
                         tension: 0.4
                     }]
                 },
@@ -278,8 +324,8 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     animation: {
-                        duration: 20000, // Загальна 20-секундна плавна анімація
-                        easing: 'easeOutElastic' // Ефект стрибків та пружинення
+                        duration: 20000, // Загальна тривалість 20 секунд
+                        easing: 'easeOutElastic'
                     },
                     plugins: {
                         legend: { labels: { color: '#f8fafc' } }
@@ -291,41 +337,38 @@
                 }
             });
 
-            // Динамічний ефект: зміна кольорів та "стрибки" лінії з поверненням на місце
+            // Зміна кольорів лінії біржі
             let colorHue = 0;
-            const bounceInterval = setInterval(() => {
-                colorHue = (colorHue + 15) % 360;
-                
-                // Зміна кольору лінії
+            const colorTimer = setInterval(() => {
+                colorHue = (colorHue + 12) % 360;
                 courtChart.data.datasets[0].borderColor = `hsl(${colorHue}, 100%, 65%)`;
                 courtChart.data.datasets[0].backgroundColor = `hsla(${colorHue}, 100%, 50%, 0.25)`;
+                courtChart.update('none');
+            }, 250);
 
-                courtChart.update('none'); // Швидке оновлення кольорів без перепідгрузки
-            }, 200);
-
-            // Тимчасові випадкові "стрибки" показників біржі
-            const jumpInterval = setInterval(() => {
+            // Ефект "стрибаючої" лінії
+            const bounceTimer = setInterval(() => {
                 courtChart.data.datasets[0].data = courtChart.data.datasets[0].data.map(val => {
-                    return val + (Math.random() * 80 - 40);
+                    return val + (Math.random() * 90 - 45);
                 });
                 courtChart.update();
-            }, 1200);
+            }, 1000);
 
-            // Через 16 секунд графік заспокоюється і стає точно на свої кінцеві місця
+            // Через 15 секунд лінія заспокоюється і стає на фінальні місця
             setTimeout(() => {
-                clearInterval(jumpInterval);
+                clearInterval(bounceTimer);
                 courtChart.data.datasets[0].data = finalData;
                 courtChart.data.datasets[0].borderColor = '#38bdf8';
                 courtChart.data.datasets[0].backgroundColor = 'rgba(56, 189, 248, 0.3)';
                 courtChart.update({
-                    duration: 4000,
+                    duration: 5000,
                     easing: 'easeInOutQuart'
                 });
-            }, 16000);
+            }, 15000);
 
-            // Зупинка зміни кольорів після 20 секунд
+            // Зупинка зміни кольорів на 20 секунді
             setTimeout(() => {
-                clearInterval(colorHue);
+                clearInterval(colorTimer);
             }, 20000);
         });
     </script>
