@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -278,7 +277,6 @@
             margin-bottom: 25px;
         }
 
-        /* БІРЖА ТА СТАТУС ЗБОЮ СИСТЕМИ */
         .market-status {
             margin-bottom: 15px;
             display: flex;
@@ -328,7 +326,6 @@
             box-shadow: inset 0 0 35px rgba(0,0,0,0.8), 0 0 40px rgba(14, 165, 233, 0.15);
         }
 
-        /* ВИПАДАЮЧІ СПИСКИ */
         .dropdown-element {
             margin-top: 16px;
         }
@@ -399,7 +396,7 @@
             margin-top: 25px;
         }
 
-        /* ===== СПЕЦІАЛЬНА АНІМАЦІЯ КАРТОК СУДДІВ (10 секунд обертання) ===== */
+        /* ===== УНІКАЛЬНІ АНІМАЦІЇ ДЛЯ КОЖНОЇ КАРТКИ СУДДІ ===== */
         .staff-profile-card {
             background: linear-gradient(135deg, #131e3b 0%, #080f24 100%);
             border: 1px solid var(--border-primary);
@@ -410,25 +407,49 @@
             overflow: hidden;
             transform-style: preserve-3d;
             will-change: transform;
-            animation: supremeSpinIn 10s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-duration: 10s;
+            animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+            animation-fill-mode: forwards;
         }
 
-        @keyframes supremeSpinIn {
-            0% {
-                transform: perspective(1000px) rotateX(720deg) rotateY(1080deg) scale(0.1) translateY(200px);
-                opacity: 0;
-                filter: blur(10px);
-            }
-            70% {
-                transform: perspective(1000px) rotateX(120deg) rotateY(180deg) scale(0.85) translateY(-20px);
-                opacity: 0.8;
-                filter: blur(2px);
-            }
-            100% {
-                transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1) translateY(0);
-                opacity: 1;
-                filter: blur(0px);
-            }
+        /* 1-ша картка: Потужний 3D-спін з віддаленням */
+        .staff-profile-card:nth-child(1) {
+            animation-name: animCard1;
+        }
+        @keyframes animCard1 {
+            0% { transform: perspective(1000px) rotateX(720deg) rotateY(1080deg) scale(0.1) translateY(200px); opacity: 0; filter: blur(10px); }
+            70% { transform: perspective(1000px) rotateX(120deg) rotateY(180deg) scale(0.85) translateY(-20px); opacity: 0.8; filter: blur(2px); }
+            100% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1) translateY(0); opacity: 1; filter: blur(0px); }
+        }
+
+        /* 2-га картка: Спіральний виліт знизу з розширенням */
+        .staff-profile-card:nth-child(2) {
+            animation-name: animCard2;
+        }
+        @keyframes animCard2 {
+            0% { transform: perspective(1000px) rotateZ(-45deg) scale(0.2) translateY(300px); opacity: 0; filter: blur(8px); }
+            70% { transform: perspective(1000px) rotateZ(10deg) scale(1.05) translateY(15px); opacity: 0.9; filter: blur(1px); }
+            100% { transform: perspective(1000px) rotateZ(0deg) scale(1) translateY(0); opacity: 1; filter: blur(0px); }
+        }
+
+        /* 3-тя картка: Ефект гойдалки та зближення */
+        .staff-profile-card:nth-child(3) {
+            animation-name: animCard3;
+        }
+        @keyframes animCard3 {
+            0% { transform: perspective(1000px) rotateY(90deg) scale(0.4) translateX(-200px); opacity: 0; filter: blur(12px); }
+            70% { transform: perspective(1000px) rotateY(-20deg) scale(0.9) translateX(15px); opacity: 0.85; filter: blur(3px); }
+            100% { transform: perspective(1000px) rotateY(0deg) scale(1) translateX(0); opacity: 1; filter: blur(0px); }
+        }
+
+        /* 4-та картка (якщо є): Плавне обертання навколо осі X */
+        .staff-profile-card:nth-child(4) {
+            animation-name: animCard4;
+        }
+        @keyframes animCard4 {
+            0% { transform: perspective(1000px) rotateX(-90deg) scale(0.3) translateY(-150px); opacity: 0; filter: blur(10px); }
+            70% { transform: perspective(1000px) rotateX(15deg) scale(0.95) translateY(10px); opacity: 0.9; filter: blur(2px); }
+            100% { transform: perspective(1000px) rotateX(0deg) scale(1) translateY(0); opacity: 1; filter: blur(0px); }
         }
 
         .staff-profile-card::before {
@@ -467,7 +488,7 @@
         .staff-contacts-info a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
         .staff-contacts-info a:hover { color: var(--accent-blue-hover); text-decoration: underline; }
 
-        /* ===== ЧОРНИЙ СПИСОК (тільки heehrhrhl18) ===== */
+        /* ЧОРНИЙ СПИСОК */
         .blacklist-section {
             background: rgba(30, 10, 15, 0.6);
             border: 1px solid rgba(239, 68, 68, 0.3);
@@ -558,7 +579,6 @@
     </style>
 </head>
 <body>
-    <!-- Додані елементи швидкої навігації та індикатор прокрутки -->
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="quick-nav" aria-label="Швидка навігація">
         <button type="button" id="toTop" title="На початок">↑</button>
@@ -688,7 +708,7 @@
 
         <section class="content-section animate-on-scroll">
             <h2 class="section-title">🏛 Колектив суду та Адвокатура</h2>
-            <p class="section-description">Офіційний кадровий склад керівництва, суддівської колегії та представників захисту:</p>
+            <p class="section-description">Офіційний кадровий склад керівництва, суддівської колегії та представників захисту (з унікальними ефектами появи карток):</p>
             
             <div class="staff-grid-container">
                 <div class="staff-profile-card">
@@ -717,19 +737,9 @@
                     <div class="staff-role-badge">Суддя</div>
                     <div class="staff-contacts-info">Roblox: Huhaidjopy<br>TG: <a href="https://t.me/bewewewewewe" target="_blank">@bewewewewewe</a></div>
                 </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Zaj_zuda3" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '💼'}))">
-                    </div>
-                    <h3>Zaj_zuda3</h3>
-                    <div class="staff-role-badge">Адвокат</div>
-                    <div class="staff-contacts-info">Roblox: Zaj_zuda3<br>TG: <a href="https://t.me/Dz7xj" target="_blank">@Dz7xj</a></div>
-                </div>
             </div>
         </section>
 
-        <!-- Оновлений Чорний список (виправлено: тільки heehrhrhl18) -->
         <section class="blacklist-section content-section animate-on-scroll" id="blacklist">
             <h2 class="section-title blacklist-title">🚫 Чорний список</h2>
             <p class="section-description">Офіційний запис про звільненого учасника.</p>
@@ -832,7 +842,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Оновлення індикатора прокрутки
             const progress = document.getElementById('scrollProgress');
             const updateScrollProgress = () => {
                 const scrollTop = window.scrollY;
@@ -842,7 +851,6 @@
             window.addEventListener('scroll', updateScrollProgress, { passive: true });
             updateScrollProgress();
 
-            // Швидка навігація
             document.getElementById('toTop')?.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
@@ -850,7 +858,6 @@
                 window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
             });
 
-            // Ripple ефекти для кнопок
             document.querySelectorAll('button').forEach(button => {
                 button.style.position = button.style.position || 'relative';
                 button.style.overflow = 'hidden';
@@ -867,7 +874,6 @@
                 });
             });
 
-            // 3D tilt для карток персоналу
             document.querySelectorAll('.staff-profile-card, .blacklist-card').forEach(card => {
                 card.addEventListener('pointermove', (event) => {
                     const rect = card.getBoundingClientRect();
@@ -880,7 +886,6 @@
                 });
             });
 
-            // Живий годинник у шапці
             const clock = document.getElementById('liveClock');
             if (clock) {
                 const updateClock = () => {
@@ -916,7 +921,6 @@
                 });
             });
 
-            // Налаштування та запуск графіка з довгою плавною анімацією
             const ctx = document.getElementById('courtStockChart').getContext('2d');
             const chartGradient = ctx.createLinearGradient(0, 0, 0, 400);
             chartGradient.addColorStop(0, 'rgba(14, 165, 233, 0.55)');
@@ -980,7 +984,6 @@
                 }
             });
 
-            // Логіка 12-секундного збою системи на біржі
             const statusPill = document.getElementById('marketStatusPill');
             const statusText = document.getElementById('marketStatusText');
 
