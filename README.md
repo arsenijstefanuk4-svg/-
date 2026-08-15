@@ -710,51 +710,85 @@
             <h2 class="section-title">🏛 Колектив суду та Адвокатура</h2>
             <p class="section-description">Офіційний кадровий склад керівництва, суддівської колегії та представників захисту (з унікальними ефектами появи карток):</p>
             
-            <div class="staff-grid-container">
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Arseniy_zabanen" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '⚖️'}))">
-                    </div>
-                    <h3>Arseniy_zabanen</h3>
-                    <div class="staff-role-badge">Головний Суддя (ГС)</div>
-                    <div class="staff-contacts-info">Roblox: Arseniy_zabanen<br>TG: <a href="https://t.me/Samyry228" target="_blank">@Samyry228</a></div>
-                </div>
+          <div class="staff-grid-container">
 
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="mummu228kuku" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '🛡'}))">
-                    </div>
-                    <h3>mummu228kuku</h3>
-                    <div class="staff-role-badge">Заступник</div>
-                    <div class="staff-contacts-info">Roblox: mummu228kuku<br>TG: <a href="https://t.me/here_everyone" target="_blank">@here_everyone</a></div>
-                </div>
+  <!-- 1. Головний суддя -->
+  <div class="staff-profile-card">
+    <div class="staff-avatar-wrapper">
+      <img src="judges/Arseniy_zabanen.png" alt="Arseniy_zabanen"
+           onerror="this.replaceWith(Object.assign(document.createElement('div'),
+           {className: 'avatar-fallback', innerText: '⚖️'}))">
+    </div>
+    <h3>Arseniy_zabanen</h3>
+    <div class="staff-role-badge">Головний Суддя (ГС)</div>
+    <div class="staff-contacts-info">
+      Roblox: Arseniy_zabanen<br>
+      TG: <a href="https://t.me/Samyry228" target="_blank">@Samyry228</a>
+    </div>
+  </div>
 
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <img src="https://via.placeholder.com/150" alt="Huhaidjopy" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'avatar-fallback', innerText: '🏛'}))">
-                    </div>
-                    <h3>Huhaidjopy</h3>
-                    <div class="staff-role-badge">Суддя</div>
-                    <div class="staff-contacts-info">Roblox: Huhaidjopy<br>TG: <a href="https://t.me/bewewewewewe" target="_blank">@bewewewewewe</a></div>
-                </div>
-            </div>
-        </section>
+  <!-- 2. Заступник головного судді -->
+  <div class="staff-profile-card">
+    <div class="staff-avatar-wrapper">
+      <img src="judges/mummu228kuku.png" alt="mummu228kuku"
+           onerror="this.replaceWith(Object.assign(document.createElement('div'),
+           {className: 'avatar-fallback', innerText: '🛡'}))">
+    </div>
+    <h3>mummu228kuku</h3>
+    <div class="staff-role-badge">Заступник Головного Судді</div>
+    <div class="staff-contacts-info">
+      Roblox: mummu228kuku<br>
+      TG: <a href="https://t.me/here_everyone" target="_blank">@here_everyone</a>
+    </div>
+  </div>
 
-        <section class="blacklist-section content-section animate-on-scroll" id="blacklist">
-            <h2 class="section-title blacklist-title">🚫 Чорний список</h2>
-            <p class="section-description">Офіційний запис про звільненого учасника.</p>
-            <div class="blacklist-grid">
-                <article class="blacklist-card">
-                    <div class="blacklist-icon">🚫</div>
-                    <h3>heehrhrhl18</h3>
-                    <span class="blacklist-badge">ЗВІЛЬНЕНО / ЧОРНИЙ СПИСОК</span>
-                    <div class="blacklist-contacts">
-                        Roblox: heehrhrhl18<br>
-                        TG: <a href="https://t.me/hehr18_UR" target="_blank">@hehr18_UR</a>
-                    </div>
-                </article>
-            </div>
-        </section>
+  <!-- 3. Суддя -->
+  <div class="staff-profile-card">
+    <div class="staff-avatar-wrapper">
+      <img src="judges/Huhaidjopy.png" alt="Huhaidjopy"
+           onerror="this.replaceWith(Object.assign(document.createElement('div'),
+           {className: 'avatar-fallback', innerText: '🏛'}))">
+    </div>
+    <h3>Huhaidjopy</h3>
+    <div class="staff-role-badge">Суддя</div>
+    <div class="staff-contacts-info">
+      Roblox: Huhaidjopy<br>
+      TG: <a href="https://t.me/bewewewewewe" target="_blank">@bewewewewewe</a>
+    </div>
+  </div>
+
+  <!-- 4. Суддя-Стажер -->
+  <div class="staff-profile-card">
+    <div class="staff-avatar-wrapper">
+      <img src="judges/hdyfdujfv.png" alt="hdyfdujfv"
+           onerror="this.replaceWith(Object.assign(document.createElement('div'),
+           {className: 'avatar-fallback', innerText: '📘'}))">
+    </div>
+    <h3>hdyfdujfv</h3>
+    <div class="staff-role-badge">Суддя-Стажер</div>
+    <div class="staff-contacts-info">
+      Roblox: hdyfdujfv<br>
+      TG: ItsFurka
+    </div>
+  </div>
+
+  <!-- 5. Суддя-Стажер -->
+  <div class="staff-profile-card">
+    <div class="staff-avatar-wrapper">
+      <img src="judges/ettefhfhifh12.png" alt="ettefhfhifh12"
+           onerror="this.replaceWith(Object.assign(document.createElement('div'),
+           {className: 'avatar-fallback', innerText: '📜'}))">
+    </div>
+    <h3>ettefhfhifh12</h3>
+    <div class="staff-role-badge">Суддя-Стажер</div>
+    <div class="staff-contacts-info">
+      Roblox: ettefhfhifh12<br>
+      TG: <a href="https://t.me/mroztin" target="_blank">@mroztin</a>
+    </div>
+  </div>
+
+</div>
+
 
         <section class="content-section animate-on-scroll">
             <h2 class="section-title">📊 Детальна архівна таблиця звітів та порушень</h2>
