@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Офіційний Портал Судової Системи — Ukraine RP v3.5</title>
+    <title>Офіційний Портал Судової Системи — Ukraine RP</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         *, *::before, *::after {
@@ -12,591 +11,441 @@
             padding: 0;
         }
 
-        /* ЗМІННІ ТЕМ */
         :root {
             --bg-primary: #020617;
             --bg-secondary: #070d1f;
             --bg-card: #0b1329;
             --border-primary: #1e293b;
-            --border-accent: #38bdf8;
             --accent-blue: #0ea5e9;
             --accent-purple: #818cf8;
-            --accent-red: #ef4444;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --card-shadow: rgba(0, 0, 0, 0.4);
+            --success-color: #22c55e;
+            --danger-color: #ef4444;
+            --glow-color: rgba(14, 165, 233, 0.4);
         }
 
-        body.theme-light {
-            --bg-primary: #f1f5f9;
-            --bg-secondary: #ffffff;
-            --bg-card: #f8fafc;
-            --border-primary: #cbd5e1;
-            --border-accent: #0284c7;
-            --accent-blue: #0284c7;
-            --accent-purple: #6366f1;
-            --accent-red: #dc2626;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --card-shadow: rgba(0, 0, 0, 0.1);
-        }
-
-        body.theme-neon {
-            --bg-primary: #050014;
-            --bg-secondary: #0d0029;
-            --bg-card: #180038;
+        /* ТЕМИ */
+        body.theme-cyberpunk {
+            --bg-primary: #0d0221;
+            --bg-secondary: #190535;
+            --bg-card: #26084d;
             --border-primary: #ff007f;
-            --border-accent: #00f0ff;
             --accent-blue: #00f0ff;
-            --accent-purple: #bf00ff;
-            --accent-red: #ff0055;
-            --text-main: #ffffff;
-            --text-muted: #d8b4fe;
-            --card-shadow: rgba(0, 240, 255, 0.2);
+            --accent-purple: #ff007f;
+            --glow-color: rgba(255, 0, 127, 0.5);
         }
 
-        body.theme-emerald {
-            --bg-primary: #022c22;
-            --bg-secondary: #064e3b;
-            --bg-card: #065f46;
-            --border-primary: #10b981;
-            --border-accent: #34d399;
-            --accent-blue: #10b981;
-            --accent-purple: #059669;
-            --accent-red: #f87171;
-            --text-main: #ecfdf5;
-            --text-muted: #a7f3d0;
-            --card-shadow: rgba(16, 185, 129, 0.2);
+        body.theme-matrix {
+            --bg-primary: #000a00;
+            --bg-secondary: #001a00;
+            --bg-card: #002b00;
+            --border-primary: #00ff00;
+            --accent-blue: #00ff66;
+            --accent-purple: #00cc44;
+            --glow-color: rgba(0, 255, 0, 0.4);
+        }
+
+        body.theme-crimson {
+            --bg-primary: #1a0505;
+            --bg-secondary: #2b0a0a;
+            --bg-card: #3d0e0e;
+            --border-primary: #991b1b;
+            --accent-blue: #f87171;
+            --accent-purple: #ef4444;
+            --glow-color: rgba(239, 68, 68, 0.4);
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-primary);
             color: var(--text-main);
-            line-height: 1.7;
+            line-height: 1.6;
             padding: 30px;
-            overflow-x: hidden;
             min-height: 100vh;
-            transition: background 0.5s ease, color 0.5s ease;
+            position: relative;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
         }
 
-        /* ===== ЕКРАН ЗАВАНТАЖЕННЯ (10 СЕКУНД) ===== */
-        #loader-overlay {
+        /* АНІМОВАНИЙ ЗАДНІЙ ФОН */
+        .bg-particle {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #020617;
-            z-index: 999999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-
-        .loader-spinner {
-            width: 90px; height: 90px;
-            border: 6px solid rgba(56, 189, 248, 0.15);
-            border-top: 6px solid var(--accent-blue);
             border-radius: 50%;
-            animation: spin 1s linear infinite, glowPulse 2s ease-in-out infinite alternate;
-            margin-bottom: 25px;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: floatParticle 10s infinite alternate ease-in-out;
         }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes glowPulse { 0% { box-shadow: 0 0 10px var(--accent-blue); } 100% { box-shadow: 0 0 30px var(--accent-blue); } }
-
-        .loader-title {
-            color: #fff; font-size: 1.6rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 15px; text-align: center;
-            animation: fadeInOut 1.5s infinite alternate;
+        .bg-p1 {
+            top: -100px; left: -100px;
+            width: 500px; height: 500px;
+            background: var(--accent-blue);
         }
 
-        @keyframes fadeInOut { 0% { opacity: 0.6; } 100% { opacity: 1; } }
-
-        .loader-bar-bg {
-            width: 320px; height: 12px; background: #0f172a; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-accent);
+        .bg-p2 {
+            bottom: -100px; right: -100px;
+            width: 500px; height: 500px;
+            background: var(--accent-purple);
+            animation-delay: -5s;
         }
 
-        .loader-bar-fill {
-            width: 0%; height: 100%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            transition: width 0.1s linear;
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(120px, 80px) scale(1.3); }
         }
 
-        .loader-timer { margin-top: 12px; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; }
+        .main-container { max-width: 1200px; margin: 0 auto; }
 
-        /* ===== СКРОЛ ТА НАВІГАЦІЯ ===== */
-        .scroll-progress {
-            position: fixed; top: 0; left: 0; width: 0; height: 4px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            box-shadow: 0 0 16px var(--accent-blue); z-index: 99999;
+        /* НАЛАШТУВАННЯ */
+        .settings-btn {
+            position: fixed;
+            top: 20px; right: 20px;
+            z-index: 10000;
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent-blue);
+            color: var(--text-main);
+            padding: 10px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--glow-color);
+            transition: transform 0.3s;
         }
 
-        .quick-nav {
-            position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 9999;
+        .settings-btn:hover { transform: scale(1.05); }
+
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 70px; right: 20px;
+            z-index: 10001;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-blue);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            width: 250px;
         }
 
-        .quick-nav button {
-            width: 48px; height: 48px; border-radius: 14px; border: 1px solid var(--border-accent);
-            background: var(--bg-secondary); color: var(--text-main); cursor: pointer;
-            backdrop-filter: blur(14px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-size: 1.2rem;
-        }
+        .settings-modal.active { display: block; }
 
-        .quick-nav button:hover { transform: translateY(-5px) scale(1.1); border-color: var(--accent-blue); box-shadow: 0 10px 20px var(--card-shadow); }
-
-        .main-container { max-width: 1300px; margin: 0 auto; }
-
-        /* ===== АНІМАЦІЇ ПОЯВИ ТА КАРТОК ===== */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(40px) scale(0.98);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .settings-box {
-            background: var(--bg-card); border: 1px solid var(--border-accent); border-radius: 20px;
-            padding: 25px; margin-bottom: 35px; box-shadow: 0 10px 30px var(--card-shadow);
-            display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between;
-            transition: transform 0.3s ease;
-        }
-
-        .settings-box:hover { transform: translateY(-3px); }
-
-        .theme-btn {
-            padding: 10px 18px; border-radius: 12px; border: 1px solid var(--border-primary);
-            background: var(--bg-secondary); color: var(--text-main); cursor: pointer; font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .theme-btn:hover, .theme-btn.active {
-            border-color: var(--accent-blue); background: var(--accent-blue); color: #fff;
-            transform: scale(1.05); box-shadow: 0 0 15px var(--accent-blue);
+        .settings-group { margin-bottom: 15px; }
+        .settings-group label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: var(--text-muted); }
+        .settings-group select {
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            color: var(--text-main);
+            border-radius: 8px;
         }
 
         .portal-header {
-            background: var(--bg-secondary); border: 1px solid var(--border-primary); border-bottom: 5px solid var(--accent-blue);
-            padding: 45px 25px; text-align: center; border-radius: 24px; margin-bottom: 35px; box-shadow: 0 20px 50px var(--card-shadow);
-            position: relative; overflow: hidden;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-bottom: 4px solid var(--accent-blue);
+            padding: 30px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .portal-header h1 {
-            font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--accent-blue); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
-            animation: pulseHeader 3s infinite alternate;
+            font-size: 2rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulseGlow 3s infinite alternate;
         }
 
-        @keyframes pulseHeader {
-            0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--accent-blue)); }
-            100% { transform: scale(1.01); filter: drop-shadow(0 0 15px var(--accent-blue)); }
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 5px var(--accent-blue); }
+            100% { text-shadow: 0 0 20px var(--accent-blue); }
         }
-
-        .hero-info-box {
-            background: var(--bg-card); border: 2px solid var(--accent-blue); border-radius: 26px;
-            padding: 45px 35px; margin-bottom: 35px; text-align: center; box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
-            transition: all 0.4s ease;
-        }
-
-        .hero-info-box:hover { transform: translateY(-5px); box-shadow: 0 0 50px rgba(14, 165, 233, 0.3); }
 
         .content-section {
-            background: var(--bg-secondary); border: 1px solid var(--border-primary); border-radius: 24px;
-            padding: 40px; margin-bottom: 35px; box-shadow: 0 20px 40px var(--card-shadow); transition: border-color 0.3s ease;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
         }
-
-        .content-section:hover { border-color: var(--border-accent); }
 
         .section-title {
-            color: var(--accent-blue); font-size: 1.75rem; margin-bottom: 15px; border-bottom: 2px solid var(--border-primary);
-            padding-bottom: 12px; display: inline-block; position: relative;
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-primary);
+            padding-bottom: 8px;
+            display: inline-block;
         }
 
-        .section-title::after {
-            content: ''; position: absolute; bottom: -2px; left: 0; width: 50%; height: 2px; background: var(--accent-blue);
-            transition: width 0.4s ease;
+        /* КАРТКИ СУДДІВ З ЕКСТРЕМАЛЬНОЮ АНІМАЦІЄЮ */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .content-section:hover .section-title::after { width: 100%; }
-
-        /* ===== ТАБЛО ЗАСІДАНЬ ТА АНІМАЦІЇ ===== */
-        .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-
-        .schedule-card {
-            background: var(--bg-card); border: 1px solid var(--border-primary); border-left: 4px solid var(--accent-blue);
-            border-radius: 16px; padding: 22px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .staff-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: cardEntrance 1s ease-out forwards;
         }
 
-        .schedule-card:hover { transform: translateY(-8px) rotateX(4deg); box-shadow: 0 15px 30px var(--card-shadow); border-color: var(--accent-blue); }
-
-        /* ===== СПИСКИ ТА ДРОПДАУНИ ===== */
-        .dropdown-element { margin-top: 16px; }
-
-        .dropdown-toggle-btn {
-            background: var(--bg-card); color: var(--text-main); cursor: pointer; padding: 20px 24px; width: 100%;
-            border: 1px solid var(--border-primary); text-align: left; font-size: 1.1rem; font-weight: 600;
-            border-radius: 16px; display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.3s ease;
+        .staff-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(transparent, var(--accent-blue), transparent 30%);
+            animation: rotateGlow 4s linear infinite;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .dropdown-toggle-btn:hover { border-color: var(--accent-blue); transform: translateX(5px); background: var(--bg-secondary); }
+        .staff-card:hover::before { opacity: 1; }
 
-        .dropdown-panel {
-            max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
-            background-color: var(--bg-card); border-radius: 0 0 16px 16px; padding: 0 24px;
+        .staff-card-content {
+            position: relative;
+            z-index: 2;
+            background: var(--bg-card);
+            padding: 15px;
+            border-radius: 12px;
         }
 
-        .dropdown-panel.expanded { max-height: 2000px; padding: 24px; margin-top: 4px; border: 1px solid var(--border-primary); }
-
-        /* ===== АНІМОВАНІ КАРТКИ СУДДІВ ===== */
-        .staff-grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 25px; margin-top: 25px; }
-
-        .staff-profile-card {
-            background: var(--bg-card); border: 1px solid var(--border-primary); padding: 35px 22px; border-radius: 22px;
-            text-align: center; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .staff-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px var(--glow-color);
+            border-color: var(--accent-blue);
         }
 
-        .staff-profile-card::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
-            opacity: 0; transition: opacity 0.4s ease; transform: rotate(30deg);
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .staff-profile-card:hover::before { opacity: 1; }
-
-        .staff-profile-card:hover {
-            transform: translateY(-12px) scale(1.03); border-color: var(--accent-blue); box-shadow: 0 20px 40px var(--card-shadow);
+        @keyframes cardEntrance {
+            0% { opacity: 0; transform: translateY(50px) rotateX(-30deg); }
+            100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
         }
 
-        .staff-avatar-wrapper {
-            width: 105px; height: 105px; margin: 0 auto 20px auto; border-radius: 50%; padding: 3px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            transition: transform 0.5s ease;
+        .avatar {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background: var(--accent-blue);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 15px var(--glow-color);
         }
 
-        .staff-profile-card:hover .staff-avatar-wrapper { transform: rotate(360deg); }
-
-        .avatar-fallback {
-            width: 100%; height: 100%; border-radius: 50%; background: var(--bg-secondary);
-            display: flex; align-items: center; justify-content: center; font-size: 2.4rem;
+        .role-badge {
+            display: inline-block;
+            background: rgba(14, 165, 233, 0.15);
+            color: var(--accent-blue);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 10px 0;
         }
 
-        .staff-role-badge {
-            color: var(--accent-blue); font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 1.5px; margin-bottom: 16px; display: inline-block; background: rgba(14, 165, 233, 0.15);
-            padding: 6px 16px; border-radius: 20px; transition: background 0.3s ease;
+        /* АКОРДЕОН */
+        .accordion-btn {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            color: var(--text-main);
+            padding: 15px;
+            text-align: left;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .staff-profile-card:hover .staff-role-badge { background: var(--accent-blue); color: #fff; }
-
-        /* ===== ТАБЛИЦІ ТА ЧОРНИЙ СПИСОК ===== */
-        .table-box-wrapper { width: 100%; overflow-x: auto; margin-top: 25px; border-radius: 20px; border: 1px solid var(--border-primary); }
-
-        .analytics-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.98rem; }
-
-        .analytics-table th, .analytics-table td { padding: 18px 22px; border-bottom: 1px solid var(--border-primary); transition: background 0.2s ease; }
-
-        .analytics-table th { background-color: var(--bg-card); color: var(--accent-blue); font-weight: 600; text-transform: uppercase; font-size: 0.82rem; }
-
-        .analytics-table tr:hover td { background-color: rgba(56, 189, 248, 0.05); }
-
-        /* Червоний стиль для Чорного Списку */
-        .blacklisted-row:hover td { background-color: rgba(239, 68, 68, 0.1) !important; }
-
-        .status-tag-red { color: var(--accent-red); background: rgba(239, 68, 68, 0.15); padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 0.85rem; }
-
-        .portal-footer {
-            text-align: center; padding: 30px 20px; background: var(--bg-secondary); border: 1px solid var(--border-primary);
-            border-radius: 20px; color: var(--text-muted); font-size: 0.95rem; margin-top: 35px;
+        .accordion-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: var(--bg-primary);
+            padding: 0 15px;
+            border-radius: 0 0 10px 10px;
         }
+
+        .accordion-panel.active {
+            max-height: 300px;
+            padding: 15px;
+            border: 1px solid var(--border-primary);
+            border-top: none;
+        }
+
+        .chart-container { height: 300px; position: relative; }
+        
+        a { color: var(--accent-blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <!-- ЕКРАН ЗАВАНТАЖЕННЯ (10 СЕКУНД) -->
-    <div id="loader-overlay">
-        <div class="loader-spinner"></div>
-        <div class="loader-title">🏛 ЗАВАНТАЖЕННЯ СУДОВОГО ПОРТАЛУ...</div>
-        <div class="loader-bar-bg">
-            <div class="loader-bar-fill" id="loaderFill"></div>
-        </div>
-        <div class="loader-timer" id="loaderTimer">Очікуйте: 10 сек.</div>
-    </div>
+    <div class="bg-particle bg-p1"></div>
+    <div class="bg-particle bg-p2"></div>
 
-    <div class="scroll-progress" id="scrollProgress"></div>
-    <div class="quick-nav">
-        <button type="button" id="toTop" title="На початок">↑</button>
-        <button type="button" id="toBottom" title="До низу">↓</button>
+    <button class="settings-btn" id="openSettings">⚙️ Налаштування</button>
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-group">
+            <label for="themeSelect">Тема оформлення</label>
+            <select id="themeSelect">
+                <option value="default">Стандартна (Cyber Blue)</option>
+                <option value="cyberpunk">Neon Cyberpunk</option>
+                <option value="matrix">Matrix Green</option>
+                <option value="crimson">Crimson Red</option>
+            </select>
+        </div>
+        <div class="settings-group">
+            <label for="animToggle">Анімації заднього фону</label>
+            <select id="animToggle">
+                <option value="on">Увімкнено</option>
+                <option value="off">Вимкнено</option>
+            </select>
+        </div>
     </div>
 
     <div class="main-container">
         
-        <!-- ПАНЕЛЬ НАЛАШТУВАНЬ -->
-        <div class="settings-box animate-on-scroll">
-            <div class="settings-title" style="font-weight: bold; color: var(--accent-blue);">⚙️ Налаштування Інтерфейсу Сайту</div>
-            <div class="theme-buttons-grid" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button class="theme-btn active" onclick="setTheme('dark', event)">🌙 Темна</button>
-                <button class="theme-btn" onclick="setTheme('light', event)">☀️ Яскрава</button>
-                <button class="theme-btn" onclick="setTheme('neon', event)">🔮 Неонова</button>
-                <button class="theme-btn" onclick="setTheme('emerald', event)">🌲 Смарагдова</button>
-            </div>
-        </div>
-
-        <header class="portal-header animate-on-scroll">
-            <h1>🏛 Офіційний Портал Судової Системи Ukraine RP</h1>
-            <p>Централізований державний реєстр судових проваджень, регламентів та керівного складу колегії</p>
+        <header class="portal-header">
+            <h1>🏛 Судова Система Ukraine RP</h1>
+            <p>Офіційний портал судових проваджень та регламентів</p>
         </header>
 
-        <div class="hero-info-box animate-on-scroll">
-            <h2>⚖️ СУД ІНФО UKRAINE RP ⚖️</h2>
-            <p>Головний інформаційний центр судової системи! Тут зібрані всі офіційні правила дотримання законів, регламенти захисту прав громадян, розклад засідань, статистичні дані та інструкції з взаємодії з державними органами на нашому сервері.</p>
-        </div>
-
-        <!-- ОНЛАЙН-ТАБЛО ЗАСІДАНЬ -->
-        <section class="content-section animate-on-scroll">
-            <h2 class="section-title">📅 Онлайн-табло призначених засідань</h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Актуальний розклад найближчих судових слухань у залі суду Ukraine RP:</p>
-
-            <div class="schedule-grid">
-                <div class="schedule-card">
-                    <div style="font-size: 0.85rem; color: var(--accent-purple); font-weight: bold; margin-bottom: 6px;">Сьогодні о 19:00</div>
-                    <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">Справа №1042 — Оскарження дій СБУ</div>
-                    <div style="font-size: 0.9rem; color: var(--text-muted);">Суддя: Arseniy_zabanen</div>
+        <section class="content-section">
+            <h2 class="section-title">⚖️ Колегія Суддів</h2>
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <div class="staff-card-content">
+                        <div class="avatar">⚖️</div>
+                        <h3>Arseniy_zabanen</h3>
+                        <span class="role-badge">Головний Суддя</span>
+                        <p>TG: <a href="https://t.me/Samyry228" target="_blank">@Samyry228</a></p>
+                    </div>
                 </div>
-                <div class="schedule-card">
-                    <div style="font-size: 0.85rem; color: var(--accent-purple); font-weight: bold; margin-bottom: 6px;">Завтра о 18:30</div>
-                    <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">Справа №1043 — Цивільний позов відшкодування</div>
-                    <div style="font-size: 0.9rem; color: var(--text-muted);">Заступник: mummu228kuku</div>
+
+                <div class="staff-card">
+                    <div class="staff-card-content">
+                        <div class="avatar">🛡</div>
+                        <h3>mummu228kuku</h3>
+                        <span class="role-badge">Заступник</span>
+                        <p>TG: <a href="https://t.me/here_everyone" target="_blank">@here_everyone</a></p>
+                    </div>
                 </div>
-                <div class="schedule-card">
-                    <div style="font-size: 0.85rem; color: var(--accent-purple); font-weight: bold; margin-bottom: 6px;">20 Серпня о 20:00</div>
-                    <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">Справа №1044 — Апеляція державного обвинувачення</div>
-                    <div style="font-size: 0.9rem; color: var(--text-muted);">Суддя: Huhaidjopy</div>
+
+                <div class="staff-card">
+                    <div class="staff-card-content">
+                        <div class="avatar">🏛</div>
+                        <h3>Huhaidjopy</h3>
+                        <span class="role-badge">Суддя</span>
+                        <p>TG: <a href="https://t.me/bewewewewewe" target="_blank">@bewewewewewe</a></p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ПРАВИЛА ТА РЕГЛАМЕНТИ -->
-        <section class="content-section animate-on-scroll">
-            <h2 class="section-title">⚖️ Нормативно-правова база та Правила Сервера</h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Детальні інструкції щодо поведінки, етики, законності дій та регламенти:</p>
+        <section class="content-section">
+            <h2 class="section-title">📈 Активність Суду</h2>
+            <div class="chart-container">
+                <canvas id="courtChart"></canvas>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">📜 Правила та Регламенти</h2>
             
-            <div class="dropdown-element">
-                <button class="dropdown-toggle-btn">
-                    <span>📜 Загальна етика та правила поведінки в суді</span> 
-                    <span>▼</span>
-                </button>
-                <div class="dropdown-panel">
-                    <p><strong>Головні норми поведінки для учасників засідання:</strong></p>
-                    <ul style="padding-left: 20px; color: var(--text-muted);">
-                        <li><strong>Форма звернення:</strong> Звертайтеся виключно офіційно — <em>«Ваша Честь»</em>.</li>
-                        <li><strong>Порядок:</strong> Заборонено перебивати виступи інших сторін та викрикувати.</li>
-                        <li><strong>RP-Взаємодія:</strong> Докази надаються через скріншоти або відеозаписи (фрапс).</li>
-                    </ul>
-                </div>
+            <button class="accordion-btn"><span>Етика та поведінка в суді</span> <span>▼</span></button>
+            <div class="accordion-panel">
+                <p>Звертайтеся до судді «Ваша Честь». Дотримуйтесь порядку та подавайте докази у формі RP (скріншоти/відео).</p>
             </div>
 
-            <div class="dropdown-element">
-                <button class="dropdown-toggle-btn">
-                    <span>🛡 Правила обшуку та законність дій держструктур</span> 
-                    <span>▼</span>
-                </button>
-                <div class="dropdown-panel">
-                    <p>Обшук або затримання вважаються легітимними лише за наявності вагомої RP-підстави (ордер, ордер від Судді, пряма фіксація правопорушення).</p>
-                </div>
-            </div>
-
-            <div class="dropdown-element">
-                <button class="dropdown-toggle-btn">
-                    <span>📚 Статті та регламент оскарження вироків</span> 
-                    <span>▼</span>
-                </button>
-                <div class="dropdown-panel">
-                    <p>Усі громадянські скарги мають бути подані протягом 48 годин з моменту фіксації порушення. Заявки подаються у відповідний розділ судової гілки.</p>
-                </div>
+            <button class="accordion-btn"><span>Правила апеляції</span> <span>▼</span></button>
+            <div class="accordion-panel">
+                <p>Подача апеляції доступна протягом 48 годин після винесення рішення при наявності відеофіксації.</p>
             </div>
         </section>
 
-        <!-- КОЛЕКТИВ СУДУ -->
-        <section class="content-section animate-on-scroll">
-            <h2 class="section-title">🏛 Колектив суду</h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Офіційний кадровий склад керівництва судової колегії:</p>
-            
-            <div class="staff-grid-container">
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <div class="avatar-fallback">⚖️</div>
-                    </div>
-                    <h3>Arseniy_zabanen</h3>
-                    <div class="staff-role-badge">Головний Суддя (ГС)</div>
-                    <div style="font-size: 0.95rem; color: var(--text-muted);">TG: <a href="https://t.me/Samyry228" target="_blank" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">@Samyry228</a></div>
-                </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <div class="avatar-fallback">🛡</div>
-                    </div>
-                    <h3>mummu228kuku</h3>
-                    <div class="staff-role-badge">Заступник</div>
-                    <div style="font-size: 0.95rem; color: var(--text-muted);">TG: <a href="https://t.me/here_everyone" target="_blank" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">@here_everyone</a></div>
-                </div>
-
-                <div class="staff-profile-card">
-                    <div class="staff-avatar-wrapper">
-                        <div class="avatar-fallback">🏛</div>
-                    </div>
-                    <h3>Huhaidjopy</h3>
-                    <div class="staff-role-badge">Суддя</div>
-                    <div style="font-size: 0.95rem; color: var(--text-muted);">TG: <a href="https://t.me/bewewewewewe" target="_blank" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">@bewewewewewe</a></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ЧОРНИЙ СПИСОК СУДОВОЇ СИСТЕМИ -->
-        <section class="content-section animate-on-scroll">
-            <h2 class="section-title" style="color: var(--accent-red);">🚫 Чорний список Судової Системи (ЧС)</h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Список осіб, яким заборонено обіймати посади в адвокатурі та суді або брати участь у засіданнях:</p>
-
-            <div class="table-box-wrapper">
-                <analytics-table class="analytics-table">
-                    <thead>
-                        <tr>
-                            <th>Нікнейм гравця</th>
-                            <th>Причина внесення</th>
-                            <th>Дата внесення</th>
-                            <th>Статус / Термін</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="blacklisted-row">
-                            <td style="font-weight: bold;">Ivan_Damagov</td>
-                            <td>Численні порушення регламенту суду, неповага</td>
-                            <td>01.08.2026</td>
-                            <td><span class="status-tag-red">Безстроково</span></td>
-                        </tr>
-                        <tr class="blacklisted-row">
-                            <td style="font-weight: bold;">Sanya_NonRP</td>
-                            <td>Спроба підкупу судді / Дача неправдивих свідчень</td>
-                            <td>12.08.2026</td>
-                            <td><span class="status-tag-red">До 12.11.2026</span></td>
-                        </tr>
-                    </tbody>
-                </analytics-table>
-            </div>
-        </section>
-
-        <!-- СТАТИСТИКА ТА РЕЄСТР -->
-        <section class="content-section animate-on-scroll">
-            <h2 class="section-title">📊 Реєстр Розглянутих Справ</h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Офіційна архівна статистика розгляду позовів за поточний місяць:</p>
-
-            <div class="table-box-wrapper">
-                <table class="analytics-table">
-                    <thead>
-                        <tr>
-                            <th>Номер Справи</th>
-                            <th>Позивач</th>
-                            <th>Відповідач</th>
-                            <th>Вердикт Суду</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#1039</td>
-                            <td>Oleg_Petrov</td>
-                            <td>НПУ м. Київ</td>
-                            <td style="color: var(--accent-blue); font-weight: bold;">Задоволено частково</td>
-                        </tr>
-                        <tr>
-                            <td>#1040</td>
-                            <td>Vadim_Kovalsky</td>
-                            <td>СБУ м. Дніпро</td>
-                            <td style="color: var(--accent-red); font-weight: bold;">Відхилено (Брак доказів)</td>
-                        </tr>
-                        <tr>
-                            <td>#1041</td>
-                            <td>Marta_Sydorova</td>
-                            <td>Мерія м. Харків</td>
-                            <td style="color: #22c55e; font-weight: bold;">Повністю задоволено</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <footer class="portal-footer animate-on-scroll">
-            <p>&copy; 2026 Офіційний Портал Судової Системи Ukraine RP. Усі права захищені.</p>
-        </footer>
     </div>
 
     <script>
-        // ЕКРАН ЗАВАНТАЖЕННЯ НА 10 СЕКУНД
-        document.addEventListener("DOMContentLoaded", function() {
-            let timeLeft = 10;
-            const fill = document.getElementById('loaderFill');
-            const timerText = document.getElementById('loaderTimer');
-            const overlay = document.getElementById('loader-overlay');
-
-            const interval = setInterval(() => {
-                timeLeft -= 0.1;
-                let percentage = ((10 - timeLeft) / 10) * 100;
-                fill.style.width = percentage + "%";
-                
-                if (timeLeft > 0) {
-                    timerText.textContent = `Очікуйте: ${Math.ceil(timeLeft)} сек.`;
-                } else {
-                    clearInterval(interval);
-                    overlay.style.opacity = '0';
-                    overlay.style.visibility = 'hidden';
-                    document.body.style.overflow = 'auto';
-                }
-            }, 100);
-
-            // Прогрес скролу
-            const progress = document.getElementById('scrollProgress');
-            window.addEventListener('scroll', () => {
-                const scrollTop = window.scrollY;
-                const max = document.documentElement.scrollHeight - window.innerHeight;
-                progress.style.width = `${max > 0 ? (scrollTop / max) * 100 : 0}%`;
+        document.addEventListener("DOMContentLoaded", () => {
+            // Модалка налаштувань
+            const settingsBtn = document.getElementById('openSettings');
+            const settingsModal = document.getElementById('settingsModal');
+            
+            settingsBtn.addEventListener('click', () => {
+                settingsModal.classList.toggle('active');
             });
 
-            // Кнопки Навігації
-            document.getElementById('toTop')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            document.getElementById('toBottom')?.addEventListener('click', () => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' }));
+            // Зміна тем
+            const themeSelect = document.getElementById('themeSelect');
+            themeSelect.addEventListener('change', (e) => {
+                document.body.className = '';
+                if (e.target.value !== 'default') {
+                    document.body.classList.add(`theme-${e.target.value}`);
+                }
+            });
 
-            // Анімація випливання блоків
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+            // Вимкнення анімацій фону
+            const animToggle = document.getElementById('animToggle');
+            const particles = document.querySelectorAll('.bg-particle');
+            animToggle.addEventListener('change', (e) => {
+                particles.forEach(p => p.style.display = e.target.value === 'off' ? 'none' : 'block');
+            });
+
+            // Аккордеон
+            document.querySelectorAll('.accordion-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const panel = btn.nextElementSibling;
+                    panel.classList.toggle('active');
+                });
+            });
+
+            // Простий графік
+            const ctx = document.getElementById('courtChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Травень', 'Червень', 'Липень', 'Серпень'],
+                    datasets: [{
+                        label: 'Розглянуті справи',
+                        data: [310, 570, 573, 640],
+                        borderColor: '#0ea5e9',
+                        tension: 0.3,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#f8fafc' } } },
+                    scales: {
+                        x: { ticks: { color: '#94a3b8' } },
+                        y: { ticks: { color: '#94a3b8' } }
                     }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
-
-            // Дропдауни
-            document.querySelectorAll('.dropdown-toggle-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const panel = this.nextElementSibling;
-                    panel.classList.toggle('expanded');
-                });
+                }
             });
         });
-
-        // ПЕРЕМИКАННЯ ТЕМ
-        function setTheme(themeName, event) {
-            document.body.className = '';
-            if (themeName !== 'dark') {
-                document.body.classList.add('theme-' + themeName);
-            }
-            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
-            if(event) event.target.classList.add('active');
-        }
     </script>
 </body>
 </html>
