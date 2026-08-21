@@ -20,13 +20,15 @@
             --border-accent: #38bdf8;
             --accent-blue: #0ea5e9;
             --accent-blue-hover: #38bdf8;
-            --accent-glow: rgba(14, 165, 233, 0.45);
+            --accent-glow: rgba(14, 165, 233, 0.65);
             --accent-purple: #818cf8;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --success-color: #22c55e;
             --warning-color: #f59e0b;
             --transition-speed: 0.4s;
+            --bg-anim-opacity: 1;
+            --blur-val: 16px;
         }
 
         /* ===== ТЕМИ ОФОРМЛЕННЯ ===== */
@@ -39,7 +41,7 @@
             --border-accent: #00f0ff;
             --accent-blue: #00f0ff;
             --accent-blue-hover: #70f8ff;
-            --accent-glow: rgba(255, 0, 127, 0.6);
+            --accent-glow: rgba(255, 0, 127, 0.8);
             --accent-purple: #ff007f;
             --text-main: #ffffff;
             --text-muted: #d8b4fe;
@@ -54,7 +56,7 @@
             --border-accent: #00ff00;
             --accent-blue: #00ff66;
             --accent-blue-hover: #66ff99;
-            --accent-glow: rgba(0, 255, 0, 0.5);
+            --accent-glow: rgba(0, 255, 0, 0.7);
             --accent-purple: #00cc44;
             --text-main: #e6ffe6;
             --text-muted: #80ff80;
@@ -69,10 +71,83 @@
             --border-accent: #ef4444;
             --accent-blue: #f87171;
             --accent-blue-hover: #fca5a5;
-            --accent-glow: rgba(239, 68, 68, 0.6);
+            --accent-glow: rgba(239, 68, 68, 0.8);
             --accent-purple: #dc2626;
             --text-main: #fff5f5;
             --text-muted: #fca5a5;
+        }
+
+        /* ===== PRELOADER (5 СЕКУНД) ===== */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: #020617;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-spinner {
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(56, 189, 248, 0.15);
+            border-top: 6px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spinLoader 1s linear infinite, glowPulse 1.5s ease-in-out infinite alternate;
+            margin-bottom: 20px;
+        }
+
+        .loader-title {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .loader-bar-wrapper {
+            width: 280px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .loader-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            transition: width 0.1s linear;
+        }
+
+        .loader-counter {
+            margin-top: 8px;
+            color: var(--border-accent);
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        @keyframes spinLoader {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes glowPulse {
+            from { box-shadow: 0 0 10px var(--accent-glow); }
+            to { box-shadow: 0 0 30px var(--accent-glow); }
         }
 
         /* ===== ULTIMATE UI ENHANCEMENTS & SCROLL PROGRESS ===== */
@@ -105,14 +180,14 @@
             background: var(--bg-secondary);
             color: var(--text-main);
             cursor: pointer;
-            backdrop-filter: blur(14px);
+            backdrop-filter: blur(var(--blur-val));
             box-shadow: 0 8px 25px rgba(0,0,0,.35);
-            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
             font-size: 1.1rem;
         }
 
         .quick-nav button:hover {
-            transform: translateY(-4px) scale(1.05);
+            transform: translateY(-4px) scale(1.08);
             border-color: var(--accent-blue);
             box-shadow: 0 14px 35px var(--accent-glow);
         }
@@ -130,13 +205,13 @@
             border-radius: 14px;
             cursor: pointer;
             font-weight: bold;
-            backdrop-filter: blur(14px);
+            backdrop-filter: blur(var(--blur-val));
             box-shadow: 0 0 20px var(--accent-glow);
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
         }
 
         .settings-toggle-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
             background: var(--bg-card-hover);
         }
 
@@ -150,19 +225,19 @@
             border: 1px solid var(--border-accent);
             border-radius: 20px;
             padding: 22px;
-            width: 280px;
+            width: 310px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 30px var(--accent-glow);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(var(--blur-val));
         }
 
         .settings-modal.active {
             display: block;
-            animation: fadeInSettings 0.3s ease;
+            animation: fadeInSettings 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes fadeInSettings {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .settings-option {
@@ -177,9 +252,9 @@
             font-weight: 600;
         }
 
-        .settings-option select {
+        .settings-option select, .settings-option input[type="range"] {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-primary);
             color: var(--text-main);
@@ -199,24 +274,34 @@
 
         @keyframes ripple { to { transform: scale(5); opacity: 0; } }
 
+        /* ЯСКРАВІШІ ФОНОВІ АНІМАЦІЇ */
+        .background-glow-layer {
+            opacity: var(--bg-anim-opacity);
+            transition: opacity 0.3s ease;
+        }
+
         .float-orb {
             position: fixed;
-            width: 7px;
-            height: 7px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: var(--accent-blue);
-            box-shadow: 0 0 18px var(--accent-blue);
-            opacity: .4;
+            box-shadow: 0 0 25px var(--accent-blue), 0 0 40px var(--accent-purple);
+            opacity: calc(0.85 * var(--bg-anim-opacity));
             pointer-events: none;
             z-index: -1;
-            animation: floatOrb linear infinite;
+            animation: floatOrb linear infinite, orbGlow 3s ease-in-out infinite alternate;
         }
 
         @keyframes floatOrb {
-            0% { transform: translate3d(0,110vh,0) scale(.5); opacity: 0; }
-            20% { opacity: .5; }
-            80% { opacity: .35; }
-            100% { transform: translate3d(90px,-15vh,0) scale(1.2); opacity: 0; }
+            0% { transform: translate3d(0, 110vh, 0) scale(.6); }
+            50% { opacity: calc(0.9 * var(--bg-anim-opacity)); }
+            100% { transform: translate3d(120px, -15vh, 0) scale(1.6); opacity: 0; }
+        }
+
+        @keyframes orbGlow {
+            from { filter: drop-shadow(0 0 5px var(--accent-blue)); }
+            to { filter: drop-shadow(0 0 20px var(--accent-purple)); }
         }
 
         body {
@@ -229,7 +314,7 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-            transition: background 0.5s ease;
+            transition: background var(--transition-speed) ease;
         }
 
         body::before {
@@ -237,13 +322,15 @@
             position: fixed;
             top: -200px;
             left: -200px;
-            width: 600px;
-            height: 600px;
+            width: 700px;
+            height: 700px;
             background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            filter: blur(80px);
+            filter: blur(70px);
             border-radius: 50%;
             z-index: -1;
-            animation: floatGlow1 12s ease-in-out infinite alternate;
+            opacity: calc(0.85 * var(--bg-anim-opacity));
+            animation: floatGlow1 10s ease-in-out infinite alternate;
+            transition: opacity 0.3s ease;
         }
 
         body::after {
@@ -251,24 +338,25 @@
             position: fixed;
             bottom: -200px;
             right: -200px;
-            width: 600px;
-            height: 600px;
+            width: 700px;
+            height: 700px;
             background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
-            filter: blur(90px);
-            opacity: 0.3;
+            filter: blur(80px);
+            opacity: calc(0.65 * var(--bg-anim-opacity));
             border-radius: 50%;
             z-index: -1;
-            animation: floatGlow2 15s ease-in-out infinite alternate-reverse;
+            animation: floatGlow2 12s ease-in-out infinite alternate-reverse;
+            transition: opacity 0.3s ease;
         }
 
         @keyframes floatGlow1 {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-            100% { transform: translate(100px, 80px) scale(1.3); opacity: 1; }
+            0% { transform: translate(0, 0) scale(1); opacity: calc(0.7 * var(--bg-anim-opacity)); }
+            100% { transform: translate(140px, 100px) scale(1.4); opacity: calc(1 * var(--bg-anim-opacity)); }
         }
 
         @keyframes floatGlow2 {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-            100% { transform: translate(-120px, -90px) scale(1.25); opacity: 1; }
+            0% { transform: translate(0, 0) scale(1); opacity: calc(0.6 * var(--bg-anim-opacity)); }
+            100% { transform: translate(-150px, -110px) scale(1.35); opacity: calc(0.9 * var(--bg-anim-opacity)); }
         }
 
         .main-container {
@@ -279,7 +367,7 @@
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1), transform var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .animate-on-scroll.visible {
@@ -289,16 +377,22 @@
 
         .portal-header {
             background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(var(--blur-val));
             border: 1px solid var(--border-accent);
             border-bottom: 5px solid var(--accent-blue);
             padding: 40px 25px;
             text-align: center;
             border-radius: 24px;
             margin-bottom: 35px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 35px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .portal-header:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 45px var(--accent-glow);
         }
 
         .portal-header h1 {
@@ -319,8 +413,8 @@
         }
 
         @keyframes neonPulse {
-            0% { filter: drop-shadow(0 0 2px var(--accent-blue)); }
-            100% { filter: drop-shadow(0 0 14px var(--accent-purple)); }
+            0% { filter: drop-shadow(0 0 4px var(--accent-blue)); }
+            100% { filter: drop-shadow(0 0 18px var(--accent-purple)); }
         }
 
         .portal-header p {
@@ -339,13 +433,18 @@
 
         .hero-info-box {
             background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(var(--blur-val));
             border: 2px solid var(--accent-blue);
             border-radius: 26px;
             padding: 45px 35px;
             margin-bottom: 35px;
             text-align: center;
             box-shadow: 0 0 60px var(--accent-glow), inset 0 0 30px var(--accent-glow);
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .hero-info-box:hover {
+            transform: scale(1.01);
         }
 
         .hero-info-box h2 {
@@ -370,7 +469,7 @@
 
         .content-section {
             background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(var(--blur-val));
             border: 1px solid var(--border-primary);
             border-radius: 24px;
             padding: 40px;
@@ -378,6 +477,12 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65);
             position: relative;
             overflow: hidden;
+            transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .content-section:hover {
+            border-color: var(--border-accent);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 20px var(--accent-glow);
         }
 
         .section-title {
@@ -413,7 +518,7 @@
             font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 0.5px;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
         }
         .market-status-pill.glitch-mode {
             background: rgba(239, 68, 68, 0.2);
@@ -463,19 +568,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all var(--transition-speed);
+            transition: all var(--transition-speed) ease;
         }
 
         .dropdown-toggle-btn:hover {
             background: var(--bg-card-hover);
             border-color: var(--accent-blue);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
         }
 
         .dropdown-panel {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
             background-color: var(--bg-secondary);
             border-radius: 0 0 16px 16px;
             padding: 0 24px;
@@ -529,6 +635,7 @@
             animation-duration: 8s;
             animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
             animation-fill-mode: forwards;
+            transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
         }
 
         .staff-profile-card::before {
@@ -636,6 +743,10 @@
             max-width: 350px;
             width: 100%;
             position: relative;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+        .blacklist-card:hover {
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
         }
         .blacklist-icon {
             font-size: 2.5rem;
@@ -671,7 +782,7 @@
         }
 
         .analytics-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.98rem; white-space: nowrap; }
-        .analytics-table th, .analytics-table td { padding: 18px 22px; border-bottom: 1px solid var(--border-primary); color: var(--text-main) !important; }
+        .analytics-table th, .analytics-table td { padding: 18px 22px; border-bottom: 1px solid var(--border-primary); color: var(--text-main) !important; transition: background-color var(--transition-speed) ease; }
         .analytics-table th { background-color: var(--bg-card) !important; color: var(--accent-blue) !important; font-weight: 600; text-transform: uppercase; font-size: 0.82rem; letter-spacing: 1px; }
         .analytics-table tbody tr { background-color: var(--bg-primary) !important; }
         .analytics-table tr:nth-child(even) { background-color: var(--bg-secondary) !important; }
@@ -690,7 +801,8 @@
         .event-benefits-list li { position: relative; padding-left: 26px; margin-bottom: 10px; color: var(--text-main); font-size: 0.98rem; }
         .event-benefits-list li::before { content: "✔️"; position: absolute; left: 0; color: var(--success-color); font-weight: bold; }
         .event-schedule-container { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 18px; border-top: 1px solid var(--border-primary); padding-top: 18px; }
-        .schedule-badge { background: var(--bg-card); border: 1px solid var(--accent-blue); color: var(--text-main); padding: 12px 20px; border-radius: 14px; font-weight: bold; font-size: 1.02rem; }
+        .schedule-badge { background: var(--bg-card); border: 1px solid var(--accent-blue); color: var(--text-main); padding: 12px 20px; border-radius: 14px; font-weight: bold; font-size: 1.02rem; transition: transform var(--transition-speed) ease; }
+        .schedule-badge:hover { transform: translateY(-3px) scale(1.05); }
 
         .owner-news-branch {
             background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-primary) 100%); border: 1px dashed var(--accent-blue); border-radius: 20px; padding: 32px; margin-top: 35px;
@@ -704,6 +816,16 @@
     </style>
 </head>
 <body>
+    <!-- PRELOADER 5 СЕКУНД -->
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <div class="loader-title">Завантаження Порталу...</div>
+        <div class="loader-bar-wrapper">
+            <div class="loader-bar" id="loaderBar"></div>
+        </div>
+        <div class="loader-counter" id="loaderCounter">0%</div>
+    </div>
+
     <div class="scroll-progress" id="scrollProgress"></div>
     
     <button type="button" class="settings-toggle-btn" id="openSettings">⚙️ Налаштування</button>
@@ -718,7 +840,27 @@
             </select>
         </div>
         <div class="settings-option">
-            <label for="animToggle">Анімації заднього фону</label>
+            <label for="animSpeed">Швидкість анімацій</label>
+            <select id="animSpeed">
+                <option value="0.4s" selected>Стандартна</option>
+                <option value="0.8s">Повільна (Smooth)</option>
+                <option value="0.2s">Швидка</option>
+            </select>
+        </div>
+        <div class="settings-option">
+            <label for="blurToggle">Розмиття панелей (Blur)</label>
+            <select id="blurToggle">
+                <option value="16px" selected>Увімкнено (16px)</option>
+                <option value="8px">Легке (8px)</option>
+                <option value="0px">Вимкнено (Для слабких ПК)</option>
+            </select>
+        </div>
+        <div class="settings-option">
+            <label for="bgOpacity">Прозорість фонових анімацій</label>
+            <input type="range" id="bgOpacity" min="0" max="1" step="0.1" value="1">
+        </div>
+        <div class="settings-option">
+            <label for="animToggle">Плаваючі елементи фону</label>
             <select id="animToggle">
                 <option value="on">Увімкнено</option>
                 <option value="off">Вимкнено</option>
@@ -730,12 +872,15 @@
         <button type="button" id="toTop" title="На початок">↑</button>
         <button type="button" id="toBottom" title="До низу">↓</button>
     </div>
-    <div class="float-orb" style="left:12%;animation-duration:18s;animation-delay:-5s"></div>
-    <div class="float-orb" style="left:35%;animation-duration:23s;animation-delay:-11s"></div>
-    <div class="float-orb" style="left:67%;animation-duration:20s;animation-delay:-8s"></div>
-    <div class="float-orb" style="left:88%;animation-duration:26s;animation-delay:-16s"></div>
+    <div class="background-glow-layer">
+        <div class="float-orb" style="left:12%;animation-duration:14s;animation-delay:-3s"></div>
+        <div class="float-orb" style="left:35%;animation-duration:18s;animation-delay:-7s"></div>
+        <div class="float-orb" style="left:55%;animation-duration:16s;animation-delay:-2s"></div>
+        <div class="float-orb" style="left:67%;animation-duration:15s;animation-delay:-5s"></div>
+        <div class="float-orb" style="left:88%;animation-duration:20s;animation-delay:-10s"></div>
+    </div>
 
-<div class="main-container">
+    <div class="main-container">
         
         <header class="portal-header animate-on-scroll">
             <h1>🏛 Офіційний Портал Судової Системи Ukraine RP</h1>
@@ -988,6 +1133,29 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // ===== 5-СЕКУНДНИЙ PRELOADER =====
+            const preloader = document.getElementById('preloader');
+            const loaderBar = document.getElementById('loaderBar');
+            const loaderCounter = document.getElementById('loaderCounter');
+            
+            let loadProgress = 0;
+            const duration = 5000; // 5 секунд
+            const intervalTime = 50;
+            const step = 100 / (duration / intervalTime);
+
+            const preloaderInterval = setInterval(() => {
+                loadProgress += step;
+                if (loadProgress >= 100) {
+                    loadProgress = 100;
+                    clearInterval(preloaderInterval);
+                    setTimeout(() => {
+                        preloader.classList.add('hidden');
+                    }, 200);
+                }
+                loaderBar.style.width = `${loadProgress}%`;
+                loaderCounter.textContent = `${Math.floor(loadProgress)}%`;
+            }, intervalTime);
+
             // МЕНЮ НАЛАШТУВАНЬ
             const settingsBtn = document.getElementById('openSettings');
             const settingsModal = document.getElementById('settingsModal');
@@ -1002,6 +1170,7 @@
                 }
             });
 
+            // Тема
             const themeSelect = document.getElementById('themeSelect');
             themeSelect?.addEventListener('change', (e) => {
                 document.body.className = '';
@@ -1010,12 +1179,31 @@
                 }
             });
 
+            // Швидкість анімацій
+            const animSpeed = document.getElementById('animSpeed');
+            animSpeed?.addEventListener('change', (e) => {
+                document.documentElement.style.setProperty('--transition-speed', e.target.value);
+            });
+
+            // Розмиття (Blur)
+            const blurToggle = document.getElementById('blurToggle');
+            blurToggle?.addEventListener('change', (e) => {
+                document.documentElement.style.setProperty('--blur-val', e.target.value);
+            });
+
+            // Прозорість/Яскравість фону
+            const bgOpacity = document.getElementById('bgOpacity');
+            bgOpacity?.addEventListener('input', (e) => {
+                document.documentElement.style.setProperty('--bg-anim-opacity', e.target.value);
+            });
+
+            // Вимкнення плаваючих оріб
             const animToggle = document.getElementById('animToggle');
-            const floatOrbs = document.querySelectorAll('.float-orb');
+            const bgGlowLayer = document.querySelector('.background-glow-layer');
             animToggle?.addEventListener('change', (e) => {
-                floatOrbs.forEach(orb => {
-                    orb.style.display = e.target.value === 'off' ? 'none' : 'block';
-                });
+                if (bgGlowLayer) {
+                    bgGlowLayer.style.display = e.target.value === 'off' ? 'none' : 'block';
+                }
             });
 
             // ПРОГРЕС СКРОЛУ
@@ -1035,6 +1223,7 @@
                 window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
             });
 
+            // Ефект Ripple
             document.querySelectorAll('button').forEach(button => {
                 button.style.position = button.style.position || 'relative';
                 button.style.overflow = 'hidden';
@@ -1051,18 +1240,20 @@
                 });
             });
 
+            // 3D Ефект наклону карток
             document.querySelectorAll('.staff-profile-card, .blacklist-card').forEach(card => {
                 card.addEventListener('pointermove', (event) => {
                     const rect = card.getBoundingClientRect();
                     const x = (event.clientX - rect.left) / rect.width - .5;
                     const y = (event.clientY - rect.top) / rect.height - .5;
-                    card.style.transform = `perspective(900px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg) translateY(-8px) scale(1.02)`;
+                    card.style.transform = `perspective(900px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) translateY(-8px) scale(1.02)`;
                 });
                 card.addEventListener('pointerleave', () => {
                     card.style.transform = '';
                 });
             });
 
+            // Годинник
             const clock = document.getElementById('liveClock');
             if (clock) {
                 const updateClock = () => {
@@ -1072,8 +1263,8 @@
                 setInterval(updateClock, 1000);
             }
 
+            // Анімації при скролі
             const observerOptions = { threshold: 0.1 };
-
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1087,6 +1278,7 @@
                 observer.observe(el);
             });
 
+            // Випадні списки (Dropdown)
             const dropdownBtns = document.querySelectorAll('.dropdown-toggle-btn');
             dropdownBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1098,9 +1290,10 @@
                 });
             });
 
+            // Графік Chart.js
             const ctx = document.getElementById('courtStockChart').getContext('2d');
             const chartGradient = ctx.createLinearGradient(0, 0, 0, 400);
-            chartGradient.addColorStop(0, 'rgba(14, 165, 233, 0.55)');
+            chartGradient.addColorStop(0, 'rgba(14, 165, 233, 0.65)');
             chartGradient.addColorStop(1, 'rgba(14, 165, 233, 0.0)');
 
             const normalData = [210, 260, 329, 390, 440, 570, 573, 640, 710];
@@ -1180,7 +1373,7 @@
                     statusPill.classList.remove('glitch-mode');
                     statusText.textContent = 'ЗБІЙ СИСТЕМИ ПРОЙШОВ — ТЕПЕР ВОНА СТАБІЛЬНА';
                 }, 12000);
-            }, 3000);
+            }, 8000);
         });
     </script>
 </body>
